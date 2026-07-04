@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)file:///Users/Lea/Documents/roman_fantasy.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grimoire — Dashboard Roman Fantasy</title>
+<script>try{var t=localStorage.getItem('grimoire_theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #0d0d11;
+  --bg2: #13131a;
+  --bg3: #1a1a24;
+  --bg4: #21212e;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e8e6f0;
+  --text2: #9994b0;
+  --text3: #52506a;
+  --sidebar: 230px;
+  --radius: 10px;
+
+  /* Section accent colors */
+  --c-accueil: #7c6af5;    --c-accueil-bg: rgba(124,106,245,0.12);
+  --c-perso: #e07b54;      --c-perso-bg: rgba(224,123,84,0.12);
+  --c-relation: #4db8a4;   --c-relation-bg: rgba(77,184,164,0.12);
+  --c-univers: #5b9cf6;    --c-univers-bg: rgba(91,156,246,0.12);
+  --c-factions: #d4736a;   --c-factions-bg: rgba(212,115,106,0.12);
+  --c-histoire: #c4a35a;   --c-histoire-bg: rgba(196,163,90,0.12);
+  --c-chap: #7cb87c;       --c-chap-bg: rgba(124,184,124,0.12);
+  --c-idees: #b87cc8;      --c-idees-bg: rgba(184,124,200,0.12);
+}
+
+:root[data-theme="light"] {
+  --bg: #f3f1f8;
+  --bg2: #ffffff;
+  --bg3: #eceaf3;
+  --bg4: #e1ddec;
+  --border: rgba(20,16,40,0.09);
+  --border2: rgba(20,16,40,0.16);
+  --text: #1c1a2e;
+  --text2: #5d5878;
+  --text3: #908ba6;
+
+  /* Section accent colors — assombries pour le fond clair */
+  --c-accueil: #5b46d6;    --c-accueil-bg: rgba(124,106,245,0.14);
+  --c-perso: #c95f37;      --c-perso-bg: rgba(224,123,84,0.15);
+  --c-relation: #2c9685;   --c-relation-bg: rgba(77,184,164,0.16);
+  --c-univers: #3a7fde;    --c-univers-bg: rgba(91,156,246,0.15);
+  --c-factions: #c0524a;   --c-factions-bg: rgba(212,115,106,0.15);
+  --c-histoire: #a8843a;   --c-histoire-bg: rgba(196,163,90,0.18);
+  --c-chap: #4f9d4f;       --c-chap-bg: rgba(124,184,124,0.16);
+  --c-idees: #9d56b0;      --c-idees-bg: rgba(184,124,200,0.15);
+}
+
+html{transition:none}
+body,.sidebar,.main,.card,.nav-item,.btn,input,textarea,select{transition:background-color .25s ease,color .25s ease,border-color .25s ease}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;font-size:14px;line-height:1.6}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);min-height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:10;overflow-y:auto}
+.sidebar-logo{padding:22px 20px 18px;border-bottom:1px solid var(--border)}
+.logo-title{font-family:'Cinzel',serif;font-size:14px;font-weight:600;letter-spacing:0.1em;color:var(--text);text-transform:uppercase}
+.logo-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.sidebar-roman{padding:12px 20px;border-bottom:1px solid var(--border)}
+.sb-roman-title{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-roman-genre{font-size:11px;color:var(--text3);margin-top:1px}
+.nav{padding:10px 0;flex:1}
+.nav-section{padding:10px 20px 4px;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 20px;cursor:pointer;color:var(--text2);font-size:13px;transition:all 0.15s;border-left:2px solid transparent;position:relative}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{color:var(--section-color, var(--text));background:var(--section-bg, var(--bg3));border-left-color:var(--section-color, var(--text3))}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:0.7;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--bg4);color:var(--text3);font-size:10px;padding:1px 7px;border-radius:99px}
+.nav-item.active .nav-badge{background:var(--section-bg);color:var(--section-color)}
+.sidebar-bottom{padding:14px 20px;border-top:1px solid var(--border)}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini-stat{background:var(--bg3);border-radius:8px;padding:8px;text-align:center}
+.mini-num{font-size:17px;font-weight:500;color:var(--text)}
+.mini-label{font-size:10px;color:var(--text3);margin-top:1px}
+
+/* MAIN */
+.main{margin-left:var(--sidebar);flex:1;height:100vh;overflow-y:auto;padding:28px 32px;min-width:0}
+.page{display:none}
+.page.active{display:block}
+.page-header{margin-bottom:24px;display:flex;justify-content:space-between;align-items:center}
+.page-title{font-family:'Cinzel',serif;font-size:19px;font-weight:600;color:var(--text);letter-spacing:0.02em}
+.page-title-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:10px;vertical-align:middle}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.card-accent-left{border-left-width:3px}
+.card-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+
+/* FORMS */
+label{display:block;font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px}
+input[type="text"],textarea,select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.15s;resize:vertical}
+input[type="text"]:focus,textarea:focus,select:focus{border-color:var(--section-color, #7c6af5);background:var(--bg4)}
+input::placeholder,textarea::placeholder{color:var(--text3)}
+select{appearance:none;cursor:pointer}
+select option{background:var(--bg3)}
+textarea{min-height:78px}
+.field{margin-bottom:13px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:var(--text2);font-size:13px;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.15s}
+.btn:hover{background:var(--bg3);color:var(--text)}
+.btn-primary{background:var(--section-color, #7c6af5);border-color:var(--section-color, #7c6af5);color:#fff}
+.btn-primary:hover{opacity:0.85;color:#fff}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-danger{color:#d4736a;border-color:rgba(212,115,106,0.3)}
+.btn-danger:hover{background:rgba(212,115,106,0.1)}
+.btn-ghost{border-color:transparent}
+.btn-ghost:hover{background:var(--bg3);border-color:var(--border)}
+
+/* TAGS */
+.tag{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:500}
+.tag-purple{background:rgba(124,106,245,0.15);color:#a89ef7}
+.tag-teal{background:rgba(77,184,164,0.15);color:#4db8a4}
+.tag-amber{background:rgba(196,163,90,0.15);color:#c4a35a}
+.tag-coral{background:rgba(224,123,84,0.15);color:#e07b54}
+.tag-green{background:rgba(124,184,124,0.15);color:#7cb87c}
+.tag-pink{background:rgba(184,124,200,0.15);color:#b87cc8}
+.tag-blue{background:rgba(91,156,246,0.15);color:#5b9cf6}
+.tag-red{background:rgba(212,115,106,0.15);color:#d4736a}
+
+/* STATUS */
+.st-idee{background:rgba(124,106,245,0.12);color:#a89ef7}
+.st-brouillon{background:rgba(196,163,90,0.12);color:#c4a35a}
+.st-redige{background:rgba(77,184,164,0.12);color:#4db8a4}
+.st-final{background:rgba(124,184,124,0.12);color:#7cb87c}
+
+/* AVATAR */
+.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex-shrink:0;font-family:'Cinzel',serif}
+.av-purple{background:rgba(124,106,245,0.2);color:#a89ef7}
+.av-teal{background:rgba(77,184,164,0.2);color:#4db8a4}
+.av-amber{background:rgba(196,163,90,0.2);color:#c4a35a}
+.av-coral{background:rgba(224,123,84,0.2);color:#e07b54}
+.av-green{background:rgba(124,184,124,0.2);color:#7cb87c}
+.av-pink{background:rgba(184,124,200,0.2);color:#b87cc8}
+.av-blue{background:rgba(91,156,246,0.2);color:#5b9cf6}
+
+/* PERSO CARD */
+.perso-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:15px;transition:border-color 0.15s}
+.perso-card:hover{border-color:var(--border2)}
+.perso-head{display:flex;gap:11px;align-items:flex-start}
+.perso-name{font-size:14px;font-weight:500;color:var(--text);font-family:'Cinzel',serif}
+.perso-meta{font-size:11px;color:var(--text3);margin-top:3px}
+.perso-body{font-size:12px;color:var(--text2);border-top:1px solid var(--border);padding-top:9px;margin-top:11px;line-height:1.5}
+
+/* WORLD CARD */
+.world-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:15px;transition:border-color 0.15s}
+.world-card:hover{border-color:var(--border2)}
+.world-name{font-size:14px;font-weight:500;font-family:'Cinzel',serif;color:var(--text);margin-bottom:3px}
+.world-type{font-size:11px;color:var(--text3);margin-bottom:8px}
+.world-desc{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* RELATION TABS */
+.rel-tabs{display:flex;gap:6px;margin-bottom:18px}
+.rel-tab{padding:6px 16px;border-radius:99px;font-size:12px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'Inter',sans-serif;transition:all 0.15s}
+.rel-tab:hover{background:var(--bg3);color:var(--text)}
+.rel-tab.active{background:var(--c-relation-bg);color:var(--c-relation);border-color:rgba(77,184,164,0.3)}
+.rel-panel{display:none}
+.rel-panel.active{display:block}
+
+/* RELATION LIST */
+.rel-item{display:flex;align-items:center;gap:10px;padding:11px;background:var(--bg3);border-radius:8px;margin-bottom:8px;font-size:13px}
+.rel-arrow{color:var(--text3);font-size:16px}
+.rel-type{font-size:12px;color:var(--text2);flex:1}
+
+/* ARBRE */
+#arbre-canvas{width:100%;height:540px;background:#060d20;border-radius:var(--radius);border:1px solid #1a2a50;cursor:grab;overflow:hidden;position:relative}
+#arbre-canvas:active{cursor:grabbing}
+#arbre-svg{width:100%;height:100%}
+.arbre-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:11px;flex-wrap:wrap}
+.arbre-toolbar select{width:auto;min-width:180px;font-family:'Inter',sans-serif}
+.arbre-rel-choose{max-height:300px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:5px;background:var(--bg3)}
+.arbre-rel-row{display:flex;align-items:center;gap:10px;padding:7px 9px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--text)}
+.arbre-rel-row:hover{background:var(--bg4)}
+.arbre-rel-row input{width:auto;margin:0;cursor:pointer;accent-color:var(--c-relation)}
+.arbre-rel-empty{font-size:12px;color:var(--text3);padding:12px;text-align:center}
+.arbre-choose-actions{display:flex;gap:10px;margin-bottom:7px}
+.arbre-choose-actions button{font-size:11px;color:var(--text2);background:none;border:none;cursor:pointer;padding:2px 0;text-decoration:underline;font-family:'Inter',sans-serif}
+.arbre-choose-actions button:hover{color:var(--text)}
+.arbre-controls{display:flex;gap:8px;margin-bottom:12px;align-items:center}
+.arbre-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--text3)}
+.arbre-legend-item{display:flex;align-items:center;gap:5px}
+.arbre-legend-line{width:20px;height:2px;border-radius:1px}
+
+/* ARBRE — fiche déroulante (menu) */
+.arbre-detail{position:absolute;z-index:40;width:300px;background:linear-gradient(180deg,#101d3e,#0a1124);border:1px solid #3a5cab;border-radius:14px;box-shadow:0 18px 42px rgba(0,4,20,0.78),0 0 0 1px rgba(91,141,217,0.12),0 0 26px rgba(60,110,210,0.28);overflow:hidden;max-height:0;opacity:0;transform:translateY(-10px) scaleY(0.95);transform-origin:top center;pointer-events:none;transition:max-height .5s cubic-bezier(.22,1,.36,1),opacity .35s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.arbre-detail.open{max-height:660px;opacity:1;transform:translateY(0) scaleY(1);pointer-events:auto}
+.arbre-detail-inner{padding:16px 18px;overflow-y:auto;max-height:640px}
+.ad-head{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.ad-emblem{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:13px;font-weight:600;background:#162042;border:1px solid #3a5cab;color:#9fc0f5}
+.ad-name{font-family:'Cinzel',serif;font-size:15px;color:#dde9ff;font-weight:600;line-height:1.25}
+.ad-meta{font-size:11px;color:#7191c8;margin-top:2px}
+.ad-alias{display:inline-block;font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(91,141,217,0.18);color:#9fc0f5;margin-left:6px;vertical-align:middle}
+.ad-section{border-top:1px solid rgba(91,141,217,0.14);padding-top:9px;margin-top:9px}
+.ad-section.first{border-top:none;margin-top:0;padding-top:0}
+.ad-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#5d7cb6;margin-bottom:3px}
+.ad-text{font-size:12px;color:#bccfee;line-height:1.55;white-space:pre-wrap}
+.ad-footer{margin-top:13px}
+.ad-btn{width:100%;justify-content:center;border-color:rgba(91,141,217,0.4);color:#9fc0f5}
+.ad-btn:hover{background:rgba(91,141,217,0.12);color:#cfe0ff}
+.ad-close{position:absolute;top:9px;right:11px;cursor:pointer;color:#5d7cb6;font-size:15px;line-height:1;background:none;border:none;padding:4px;z-index:2}
+.ad-close:hover{color:#cfe0ff}
+
+/* SOUS-FACTIONS */
+.faction-hint{font-size:12px;color:var(--text3);margin:-4px 0 14px;line-height:1.5;padding:8px 12px;background:var(--c-factions-bg);border-left:2px solid var(--c-factions);border-radius:6px}
+.faction-card{cursor:pointer}
+.faction-chevron{display:inline-block;transition:transform .25s ease;color:var(--c-factions);font-size:10px;margin-left:5px;opacity:0.7}
+.faction-card.exp>div .faction-chevron{transform:rotate(90deg)}
+.subfaction-zone{margin-top:13px;padding-top:13px;border-top:1px dashed rgba(212,115,106,0.28);animation:subDrop .35s ease}
+@keyframes subDrop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.btn-subfaction{background:rgba(212,115,106,0.13);border:1px dashed rgba(212,115,106,0.5);color:#e8aaa1;font-size:12px;padding:6px 13px}
+.btn-subfaction:hover{background:rgba(212,115,106,0.22);color:#f3c8c1}
+.subfaction-card{background:var(--bg3);border:1px solid rgba(212,115,106,0.22);border-left:2px solid rgba(212,115,106,0.55);border-radius:8px;padding:12px 13px;margin-top:9px;animation:subDrop .35s ease}
+.subfaction-card .world-name{font-size:13px}
+.sf-badge{display:inline-block;font-size:9px;text-transform:uppercase;letter-spacing:0.06em;color:#e8aaa1;background:rgba(212,115,106,0.14);padding:1px 7px;border-radius:99px;margin-left:7px;vertical-align:middle}
+
+/* CHAPITRE */
+.chap-item{display:flex;gap:13px;align-items:flex-start;padding:13px;background:var(--bg3);border-radius:8px;margin-bottom:8px}
+.chap-num{width:30px;height:30px;border-radius:50%;background:var(--bg4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--text2);flex-shrink:0}
+.chap-title{font-size:14px;font-weight:500;color:var(--text)}
+.chap-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.chap-resume{font-size:12px;color:var(--text2);margin-top:5px;line-height:1.5}
+
+/* IDEE */
+.idee-item{display:flex;gap:10px;align-items:flex-start;padding:11px;background:var(--bg3);border-radius:8px;margin-bottom:8px}
+.idee-text{flex:1;font-size:13px;color:var(--text);line-height:1.5}
+
+/* PROGRESS */
+.progress-bar{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;border-radius:2px;transition:width 0.4s ease}
+
+/* EMPTY */
+.empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
+.empty-icon{font-size:28px;margin-bottom:10px;opacity:0.3}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:100;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:24px;width:min(560px,100%);max-height:87vh;overflow-y:auto}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-title{font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--text)}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+
+/* SUBTABS (univers) */
+.subtabs{display:flex;gap:4px;margin-bottom:18px;flex-wrap:wrap}
+.subtab{padding:6px 14px;border-radius:99px;font-size:12px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'Inter',sans-serif;transition:all 0.15s}
+.subtab:hover{background:var(--bg3);color:var(--text)}
+.subtab.active{background:var(--c-univers-bg);color:var(--c-univers);border-color:rgba(91,156,246,0.3)}
+.subpanel{display:none}
+.subpanel.active{display:block}
+
+.magie-block{background:var(--bg3);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.magie-block label{color:var(--c-univers)}
+
+/* COLOR DOTS */
+.color-dots{display:flex;gap:8px;flex-wrap:wrap;margin-top:5px}
+.color-dot{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform 0.15s;display:flex;align-items:center;justify-content:center;font-size:11px}
+.color-dot:hover{transform:scale(1.15)}
+.color-dot.sel{border-color:white}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--border2)}
+
+/* DROPZONE FICHIERS */
+.dropzone{border:1.5px dashed var(--border2);border-radius:10px;padding:18px 14px;text-align:center;cursor:pointer;transition:background .15s,border-color .15s;background:var(--bg3)}
+.dropzone:hover{border-color:var(--text3)}
+.dropzone.drag{border-color:var(--c-univers);background:rgba(124,106,245,0.10)}
+.dz-hint{font-size:12px;color:var(--text3);pointer-events:none}
+.dz-browse{color:var(--text2);text-decoration:underline}
+.dz-input{display:none}
+.file-grid{display:flex;flex-wrap:wrap;gap:9px;margin-top:11px}
+.file-chip{position:relative;width:78px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:7px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:border-color .15s}
+.file-chip:hover{border-color:var(--border2)}
+.file-thumb{width:100%;height:54px;border-radius:6px;object-fit:cover;background:var(--bg4)}
+.file-icon{width:100%;height:54px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--bg4)}
+.file-name{font-size:9.5px;color:var(--text3);width:100%;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-del{position:absolute;top:-7px;right:-7px;width:19px;height:19px;border-radius:50%;border:none;background:var(--c-factions);color:#fff;font-size:11px;line-height:19px;text-align:center;cursor:pointer;padding:0;opacity:0;transition:opacity .15s}
+.file-chip:hover .file-del{opacity:1}
+.card-files{margin-top:9px;font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-title">✦ Grimoire</div>
+    <div class="logo-sub">Dashboard roman fantasy</div>
+  </div>
+  <div class="sidebar-roman">
+    <div class="sb-roman-title" id="sb-titre">Mon roman</div>
+    <div class="sb-roman-genre" id="sb-genre">Fantasy</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Vue d'ensemble</div>
+    <div class="nav-item" style="--section-color:var(--c-accueil);--section-bg:var(--c-accueil-bg)" onclick="goTo(&#39;accueil&#39;,this)">
+      <div class="nav-dot"></div> Accueil
+    </div>
+    <div class="nav-section">Personnages</div>
+    <div class="nav-item active" style="--section-color:var(--c-perso);--section-bg:var(--c-perso-bg)" onclick="goTo(&#39;personnages&#39;,this)">
+      <div class="nav-dot"></div> Personnages <span class="nav-badge" id="nb-perso">8</span>
+    </div>
+    <div class="nav-item" style="--section-color:var(--c-relation);--section-bg:var(--c-relation-bg)" onclick="goTo(&#39;relations&#39;,this)">
+      <div class="nav-dot"></div> Relations <span class="nav-badge" id="nb-rel">14</span>
+    </div>
+    <div class="nav-section">Univers</div>
+    <div class="nav-item" style="--section-color:var(--c-univers);--section-bg:var(--c-univers-bg)" onclick="goTo(&#39;univers&#39;,this)">
+      <div class="nav-dot"></div> Lieux &amp; Magie
+    </div>
+    <div class="nav-item" style="--section-color:var(--c-factions);--section-bg:var(--c-factions-bg)" onclick="goTo(&#39;factions&#39;,this)">
+      <div class="nav-dot"></div> Factions <span class="nav-badge" id="nb-fac">0</span>
+    </div>
+    <div class="nav-item" style="--section-color:var(--c-histoire);--section-bg:var(--c-histoire-bg)" onclick="goTo(&#39;histoire&#39;,this)">
+      <div class="nav-dot"></div> Histoire du monde
+    </div>
+    <div class="nav-section">Écriture</div>
+    <div class="nav-item" style="--section-color:var(--c-chap);--section-bg:var(--c-chap-bg)" onclick="goTo(&#39;chapitres&#39;,this)">
+      <div class="nav-dot"></div> Chapitres <span class="nav-badge" id="nb-chap">0</span>
+    </div>
+    <div class="nav-item" style="--section-color:var(--c-idees);--section-bg:var(--c-idees-bg)" onclick="goTo(&#39;idees&#39;,this)">
+      <div class="nav-dot"></div> Idées <span class="nav-badge" id="nb-idee">1</span>
+    </div>
+  </nav>
+  <div class="sidebar-bottom">
+    <button class="btn btn-sm" id="theme-toggle" style="width:100%;justify-content:center;font-size:11px;margin-bottom:10px" onclick="toggleTheme()">🌙 Mode sombre</button>
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <button class="btn btn-sm" style="flex:1;justify-content:center;font-size:11px" onclick="exportData()">⬇ Exporter</button>
+      <label class="btn btn-sm" style="flex:1;justify-content:center;font-size:11px;cursor:pointer;margin:0">⬆ Importer<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
+    </div>
+    <div class="mini-grid">
+      <div class="mini-stat"><div class="mini-num" id="ms-perso">8</div><div class="mini-label">Perso.</div></div>
+      <div class="mini-stat"><div class="mini-num" id="ms-chap">0</div><div class="mini-label">Chap.</div></div>
+      <div class="mini-stat"><div class="mini-num" id="ms-lieux">2</div><div class="mini-label">Lieux</div></div>
+      <div class="mini-stat"><div class="mini-num" id="ms-idees">1</div><div class="mini-label">Idées</div></div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+
+<!-- ACCUEIL -->
+<div id="page-accueil" class="page">
+  <div class="page-header">
+    <span class="page-title"><span class="page-title-dot" style="background:var(--c-accueil)"></span>Mon roman</span>
+  </div>
+  <div class="card" style="border-left:3px solid var(--c-accueil)">
+    <div class="card-label">Identité</div>
+    <div class="field"><label>Titre</label><input type="text" id="r-titre" placeholder="Le titre de ton roman..." oninput="saveRoman()"></div>
+    <div class="grid-2">
+      <div class="field"><label>Genre</label><input type="text" id="r-genre" placeholder="High fantasy, dark fantasy..." oninput="saveRoman()"></div>
+      <div class="field"><label>Ton / ambiance</label><input type="text" id="r-ton" placeholder="Sombre, épique, introspectif..." oninput="saveRoman()"></div>
+    </div>
+    <div class="field"><label>Pitch</label><textarea id="r-pitch" placeholder="En une ou deux phrases, l&#39;essence de ton histoire..." oninput="saveRoman()"></textarea></div>
+    <div class="field"><label>Thèmes principaux</label><input type="text" id="r-themes" placeholder="Pouvoir, trahison, identité, sacrifice..." oninput="saveRoman()"></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Avancement</div>
+    <div id="avancement-content"><div class="empty"><div class="empty-icon">▤</div>Pas encore de chapitres</div></div>
+  </div>
+</div>
+
+<!-- PERSONNAGES -->
+<div id="page-personnages" class="page active">
+  <div class="page-header">
+    <span class="page-title"><span class="page-title-dot" style="background:var(--c-perso)"></span>Personnages</span>
+    <button class="btn btn-primary" style="--section-color:var(--c-perso)" onclick="openModal(&#39;perso&#39;)">+ Nouveau personnage</button>
+  </div>
+  <div id="perso-list" class="grid-auto"><div class="perso-card"><div class="perso-head"><div class="avatar av-blue">LB</div><div style="flex:1;min-width:0"><div class="perso-name">Lya Blueberry</div><div class="perso-meta">Protagoniste · Hybride : louve, dragonne, démone, fae · 20 ans</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;perso&#39;,&#39;mqs7zxdarw9xvaiquc&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso(&#39;mqs7zxdarw9xvaiquc&#39;)">✕</button></div></div><div class="perso-body"><span class="tag tag-blue" style="font-size:11px">✦ Magie : contrôle les 4 éléments avec une maîtrise parfa…</span></div></div><div class="perso-card"><div class="perso-head"><div class="avatar av-blue">AB</div><div style="flex:1;min-width:0"><div class="perso-name">Alaric Blueberry <span class="tag tag-blue" style="font-size:10px;vertical-align:middle">Al, Ric</span></div><div class="perso-meta">Hybride vampire et loup · 22 ans</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;perso&#39;,&#39;mqs8qyna697gb56n0qe&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso(&#39;mqs8qyna697gb56n0qe&#39;)">✕</button></div></div><div class="perso-body"><div style="margin-bottom:7px">Surprotecteur envers sa soeur.</div><span class="tag tag-blue" style="font-size:11px">✦ Magie : contrôle la terre et le sang (s'il le goute)
+Ta…</span></div></div><div class="perso-card"><div class="perso-head"><div class="avatar av-blue">PB</div><div style="flex:1;min-width:0"><div class="perso-name">Pauline Blueberry</div><div class="perso-meta">Hybride dragonne et vampire · 16 ans</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;perso&#39;,&#39;mqs97sg4edo54v3fpf4&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso(&#39;mqs97sg4edo54v3fpf4&#39;)">✕</button></div></div><div class="perso-body"><span class="tag tag-blue" style="font-size:11px">✦ Magie : contrôle l'eau</span></div></div><div class="perso-card"><div class="perso-head"><div class="avatar av-blue">ZB</div><div style="flex:1;min-width:0"><div class="perso-name">Zaden Blueberry</div><div class="perso-meta">Hybride loup et dragon · 16 ans</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;perso&#39;,&#39;mqs98tmpnds26e3852&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso(&#39;mqs98tmpnds26e3852&#39;)">✕</button></div></div><div class="perso-body"><span class="tag tag-blue" style="font-size:11px">✦ Magie : feu et terre</span></div></div><div class="perso-card"><div class="perso-head"><div class="avatar av-blue">LB</div><div style="flex:1;min-width:0"><div class="perso-name">Lany Blueberry</div><div class="perso-meta">Dragonne · 543 ans</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;perso&#39;,&#39;mqs9cqyjva5f93i1t0j&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso(&#39;mqs9cqyjva5f93i1t0j&#39;)">✕</button></div></div><div class="perso-body"><span class="tag tag-blue" style="font-size:11px">✦ Magie : contrôle les 4 éléments </span></div></div><div class="perso-card"><div class="perso-head"><div class="avatar av-blue">EB</div><div style="flex:1;min-width:0"><div class="perso-name">Eldric Blueberry</div><div class="perso-meta">Hybride vampire et loup · 698 ans</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;perso&#39;,&#39;mqs9gfgagman5avztzd&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso(&#39;mqs9gfgagman5avztzd&#39;)">✕</button></div></div><div class="perso-body"><span class="tag tag-blue" style="font-size:11px">✦ Magie : contrôle le sang et la terre
+Talent : épéiste h…</span></div></div><div class="perso-card"><div class="perso-head"><div class="avatar av-amber">TN</div><div style="flex:1;min-width:0"><div class="perso-name">Théo Nightwalker</div><div class="perso-meta">Protagoniste · Lycanthrope · 22 ans</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;perso&#39;,&#39;mqsb9g9q5dalgb96ytj&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso(&#39;mqsb9g9q5dalgb96ytj&#39;)">✕</button></div></div><div class="perso-body"><span class="tag tag-amber" style="font-size:11px">✦ Magie : contrôle la terre
+Talents : maîtrise des arts m…</span></div></div><div class="perso-card"><div class="perso-head"><div class="avatar av-amber">MN</div><div style="flex:1;min-width:0"><div class="perso-name">Madison Nightwalker <span class="tag tag-amber" style="font-size:10px;vertical-align:middle">Mady</span></div><div class="perso-meta">Lycanthrope · 20 ans</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;perso&#39;,&#39;mqshom2g9c5q3hck8gg&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso(&#39;mqshom2g9c5q3hck8gg&#39;)">✕</button></div></div><div class="perso-body"><span class="tag tag-amber" style="font-size:11px">✦ Magie : guérisseuse
+Talents : peut déverrouiller des po…</span></div></div></div>
+</div>
+
+<!-- RELATIONS -->
+<div id="page-relations" class="page">
+  <div class="page-header">
+    <span class="page-title"><span class="page-title-dot" style="background:var(--c-relation)"></span>Relations &amp; liens</span>
+    <button class="btn btn-primary" style="--section-color:var(--c-relation)" onclick="openModal(&#39;relation&#39;)">+ Nouvelle relation</button>
+  </div>
+  <div class="rel-tabs">
+    <button class="rel-tab" onclick="switchRelTab(&#39;liste&#39;,this)">Liste</button>
+    <button class="rel-tab active" onclick="switchRelTab(&#39;arbre&#39;,this)">Arbre généalogique</button>
+  </div>
+  <div id="rel-panel-liste" class="rel-panel">
+    <div class="card">
+      <div id="rel-list"><div class="rel-item"><span class="tag tag-blue">Lya Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Alaric Blueberry</span><span class="rel-type">Frère / sœur</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqs9h16wm19vcgaazj&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqs9h16wm19vcgaazj&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Lya Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Pauline Blueberry</span><span class="rel-type">Frère / sœur</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqs9h7k8fvrk4hxlwdv&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqs9h7k8fvrk4hxlwdv&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Lya Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Zaden Blueberry</span><span class="rel-type">Frère / sœur</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqs9hf4lv3vgy2hdqs&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqs9hf4lv3vgy2hdqs&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Lany Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Lya Blueberry</span><span class="rel-type">Parent / enfant</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqs9htudnwlcv47pri&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqs9htudnwlcv47pri&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Eldric Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Lya Blueberry</span><span class="rel-type">Parent / enfant</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqs9i2gnwtdposrr3ur&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqs9i2gnwtdposrr3ur&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Lany Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Eldric Blueberry</span><span class="rel-type">Époux / épouse</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqsbcctiotc52nsrqgc&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqsbcctiotc52nsrqgc&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Lany Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Alaric Blueberry</span><span class="rel-type">Parent / enfant</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqsc8y923ksw6mbxigj&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqsc8y923ksw6mbxigj&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Eldric Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Alaric Blueberry</span><span class="rel-type">Parent / enfant</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqsc97absvpnjrlwqi&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqsc97absvpnjrlwqi&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Lany Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Pauline Blueberry</span><span class="rel-type">Parent / enfant</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqsc9ehc1mzshlzp1yg&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqsc9ehc1mzshlzp1yg&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Eldric Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Pauline Blueberry</span><span class="rel-type">Parent / enfant</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqsc9mg0szdrurcg7gm&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqsc9mg0szdrurcg7gm&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Lany Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Zaden Blueberry</span><span class="rel-type">Parent / enfant</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqsc9scxjfknct8xmfl&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqsc9scxjfknct8xmfl&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Eldric Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-blue">Zaden Blueberry</span><span class="rel-type">Parent / enfant</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqsc9zl064d41tg5o1l&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqsc9zl064d41tg5o1l&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-blue">Alaric Blueberry</span><span class="rel-arrow">⟷</span><span class="tag tag-amber">Théo Nightwalker</span><span class="rel-type">Ami(e) proche</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqshhhk2ixuu0vt879p&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqshhhk2ixuu0vt879p&#39;)">✕</button></div></div><div class="rel-item"><span class="tag tag-amber">Théo Nightwalker</span><span class="rel-arrow">⟷</span><span class="tag tag-amber">Madison Nightwalker</span><span class="rel-type">Frère / sœur</span><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;relation&#39;,&#39;mqsik9aqjhm7k22q17p&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation(&#39;mqsik9aqjhm7k22q17p&#39;)">✕</button></div></div></div>
+    </div>
+  </div>
+  <div id="rel-panel-arbre" class="rel-panel active">
+    <div class="arbre-toolbar">
+      <select id="arbre-select" onchange="selectArbre(this.value)"><option value="__all__">🌳 Tout afficher</option><option value="mqsilbwe6t2tewqjyq7">Maison Nightwalker</option><option value="mqsiltoldj66n4d3i3">Maison Blueberry</option></select>
+      <button class="btn btn-sm btn-primary" style="--section-color:var(--c-relation)" onclick="openArbreModal()">+ Nouvel arbre</button>
+      <button class="btn btn-sm" id="arbre-edit-btn" onclick="openArbreModal(arbreCurrentId)" style="">✎ Modifier</button>
+      <button class="btn btn-sm btn-danger" id="arbre-del-btn" onclick="delArbre(arbreCurrentId)" style="">🗑 Supprimer</button>
+    </div>
+    <div class="arbre-controls">
+      <button class="btn btn-sm" onclick="arbreZoomIn()">+ Zoom</button>
+      <button class="btn btn-sm" onclick="arbreZoomOut()">− Zoom</button>
+      <button class="btn btn-sm" onclick="arbreReset()">Réinitialiser</button>
+      <div class="arbre-legend" style="margin-left:12px">
+        <div class="arbre-legend-item"><div class="arbre-legend-line" style="background:#c4a35a"></div> Parent / enfant</div>
+        <div class="arbre-legend-item"><div class="arbre-legend-line" style="background:#4db8a4"></div> Frère / sœur</div>
+        <div class="arbre-legend-item"><div class="arbre-legend-line" style="background:#e07b54"></div> Époux / épouse</div>
+        <div class="arbre-legend-item"><div class="arbre-legend-line" style="background:#a89ef7;stroke-dasharray:4"></div> Autre lien</div>
+      </div>
+    </div>
+    <div id="arbre-canvas" style="overflow: hidden;">
+      <svg id="arbre-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 602 274" style="width: 100%; height: 100%;"><defs>
+    <filter id="nodeShadow" x="-40%" y="-40%" width="180%" height="180%"><fedropshadow dx="0" dy="3" stdDeviation="6" flood-color="#000820" flood-opacity="0.7"></fedropshadow></filter>
+    <filter id="nodeGlow" x="-70%" y="-70%" width="240%" height="240%"><fedropshadow dx="0" dy="0" stdDeviation="7" flood-color="#5b8dd9" flood-opacity="0.95"></fedropshadow></filter>
+    <filter id="titleGlow" x="-30%" y="-100%" width="160%" height="300%"><fedropshadow dx="0" dy="0" stdDeviation="6" flood-color="#3a6ad0" flood-opacity="0.6"></fedropshadow></filter>
+    <lineargradient id="nodeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3565c8" stop-opacity="0.33"></stop>
+      <stop offset="100%" stop-color="#0a1530" stop-opacity="0.04"></stop>
+    </lineargradient>
+    <radialgradient id="petalGrad" cx="50%" cy="32%" r="68%"><stop offset="0%" stop-color="#a6c8ff"></stop><stop offset="100%" stop-color="#4a6fc0"></stop></radialgradient>
+    <lineargradient id="leafGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4f78c8"></stop><stop offset="100%" stop-color="#2c4a92"></stop></lineargradient>
+    <lineargradient id="bgGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#473f30"></stop><stop offset="100%" stop-color="#1d1e22"></stop></lineargradient>
+    <radialgradient id="vignette" cx="50%" cy="42%" r="78%"><stop offset="52%" stop-color="#02060f" stop-opacity="0"></stop><stop offset="100%" stop-color="#02060f" stop-opacity="0.6"></stop></radialgradient>
+    <style>
+      .arbre-node rect { transition: stroke 0.2s, stroke-width 0.2s; }
+      .arbre-node { transition: filter 0.2s; }
+      .arbre-node:hover { filter: brightness(1.22); }
+    </style>
+  </defs><rect width="602" height="274" fill="url(#bgGrad)"></rect><rect width="602" height="274" fill="url(#vignette)"></rect>
+    <rect x="14" y="14" width="574" height="246" rx="13" fill="none" stroke="#274686" stroke-width="1" opacity="0.55"></rect>
+    <rect x="20" y="20" width="562" height="234" rx="10" fill="none" stroke="#1a3068" stroke-width="0.5" opacity="0.4"></rect><g opacity="0.92"><path d="M0,0 Q42,28 62,76 T112,124" fill="none" stroke="#3a5cab" stroke-width="2" opacity="0.55" stroke-linecap="round"></path><path d="M0,0 Q52,14 98,34" fill="none" stroke="#3a5cab" stroke-width="1.4" opacity="0.45" stroke-linecap="round"></path><ellipse cx="30" cy="30" rx="3.7" ry="11" transform="rotate(42 30 30)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="74" cy="54" rx="4.1" ry="12" transform="rotate(-26 74 54)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="50" cy="92" rx="3.4" ry="10" transform="rotate(14 50 92)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="98" cy="20" rx="3.1" ry="9" transform="rotate(60 98 20)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><circle cx="24" cy="42" r="2.8" fill="#5b8dd9" opacity="0.8"></circle><circle cx="82" cy="80" r="2.4" fill="#5b8dd9" opacity="0.8"></circle><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(0 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(72 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(144 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(216 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(288 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="12" cy="14" r="4.0" fill="#d4e3ff"></circle><circle cx="12" cy="14" r="2.1" fill="#6f97e0"></circle><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(0 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(72 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(144 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(216 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(288 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="60" cy="42" r="5.0" fill="#d4e3ff"></circle><circle cx="60" cy="42" r="2.6" fill="#6f97e0"></circle><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(0 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(72 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(144 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(216 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(288 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="100" cy="32" r="3.5" fill="#d4e3ff"></circle><circle cx="100" cy="32" r="1.8" fill="#6f97e0"></circle><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(0 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(72 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(144 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(216 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(288 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="48" cy="84" r="4.5" fill="#d4e3ff"></circle><circle cx="48" cy="84" r="2.3" fill="#6f97e0"></circle><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(0 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(72 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(144 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(216 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(288 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="112" cy="120" r="4.0" fill="#d4e3ff"></circle><circle cx="112" cy="120" r="2.1" fill="#6f97e0"></circle></g><g opacity="0.92" transform="translate(602,0) scale(-1,1)"><path d="M0,0 Q42,28 62,76 T112,124" fill="none" stroke="#3a5cab" stroke-width="2" opacity="0.55" stroke-linecap="round"></path><path d="M0,0 Q52,14 98,34" fill="none" stroke="#3a5cab" stroke-width="1.4" opacity="0.45" stroke-linecap="round"></path><ellipse cx="30" cy="30" rx="3.7" ry="11" transform="rotate(42 30 30)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="74" cy="54" rx="4.1" ry="12" transform="rotate(-26 74 54)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="50" cy="92" rx="3.4" ry="10" transform="rotate(14 50 92)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="98" cy="20" rx="3.1" ry="9" transform="rotate(60 98 20)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><circle cx="24" cy="42" r="2.8" fill="#5b8dd9" opacity="0.8"></circle><circle cx="82" cy="80" r="2.4" fill="#5b8dd9" opacity="0.8"></circle><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(0 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(72 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(144 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(216 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(288 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="12" cy="14" r="4.0" fill="#d4e3ff"></circle><circle cx="12" cy="14" r="2.1" fill="#6f97e0"></circle><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(0 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(72 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(144 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(216 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(288 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="60" cy="42" r="5.0" fill="#d4e3ff"></circle><circle cx="60" cy="42" r="2.6" fill="#6f97e0"></circle><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(0 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(72 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(144 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(216 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(288 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="100" cy="32" r="3.5" fill="#d4e3ff"></circle><circle cx="100" cy="32" r="1.8" fill="#6f97e0"></circle><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(0 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(72 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(144 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(216 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(288 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="48" cy="84" r="4.5" fill="#d4e3ff"></circle><circle cx="48" cy="84" r="2.3" fill="#6f97e0"></circle><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(0 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(72 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(144 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(216 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(288 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="112" cy="120" r="4.0" fill="#d4e3ff"></circle><circle cx="112" cy="120" r="2.1" fill="#6f97e0"></circle></g><g opacity="0.92" transform="translate(0,274) scale(1,-1)"><path d="M0,0 Q42,28 62,76 T112,124" fill="none" stroke="#3a5cab" stroke-width="2" opacity="0.55" stroke-linecap="round"></path><path d="M0,0 Q52,14 98,34" fill="none" stroke="#3a5cab" stroke-width="1.4" opacity="0.45" stroke-linecap="round"></path><ellipse cx="30" cy="30" rx="3.7" ry="11" transform="rotate(42 30 30)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="74" cy="54" rx="4.1" ry="12" transform="rotate(-26 74 54)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="50" cy="92" rx="3.4" ry="10" transform="rotate(14 50 92)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="98" cy="20" rx="3.1" ry="9" transform="rotate(60 98 20)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><circle cx="24" cy="42" r="2.8" fill="#5b8dd9" opacity="0.8"></circle><circle cx="82" cy="80" r="2.4" fill="#5b8dd9" opacity="0.8"></circle><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(0 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(72 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(144 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(216 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(288 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="12" cy="14" r="4.0" fill="#d4e3ff"></circle><circle cx="12" cy="14" r="2.1" fill="#6f97e0"></circle><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(0 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(72 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(144 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(216 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(288 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="60" cy="42" r="5.0" fill="#d4e3ff"></circle><circle cx="60" cy="42" r="2.6" fill="#6f97e0"></circle><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(0 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(72 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(144 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(216 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(288 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="100" cy="32" r="3.5" fill="#d4e3ff"></circle><circle cx="100" cy="32" r="1.8" fill="#6f97e0"></circle><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(0 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(72 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(144 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(216 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(288 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="48" cy="84" r="4.5" fill="#d4e3ff"></circle><circle cx="48" cy="84" r="2.3" fill="#6f97e0"></circle><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(0 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(72 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(144 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(216 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(288 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="112" cy="120" r="4.0" fill="#d4e3ff"></circle><circle cx="112" cy="120" r="2.1" fill="#6f97e0"></circle></g><g opacity="0.92" transform="translate(602,274) scale(-1,-1)"><path d="M0,0 Q42,28 62,76 T112,124" fill="none" stroke="#3a5cab" stroke-width="2" opacity="0.55" stroke-linecap="round"></path><path d="M0,0 Q52,14 98,34" fill="none" stroke="#3a5cab" stroke-width="1.4" opacity="0.45" stroke-linecap="round"></path><ellipse cx="30" cy="30" rx="3.7" ry="11" transform="rotate(42 30 30)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="74" cy="54" rx="4.1" ry="12" transform="rotate(-26 74 54)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="50" cy="92" rx="3.4" ry="10" transform="rotate(14 50 92)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><ellipse cx="98" cy="20" rx="3.1" ry="9" transform="rotate(60 98 20)" fill="url(#leafGrad)" stroke="#3f63b0" stroke-width="0.5" opacity="0.85"></ellipse><circle cx="24" cy="42" r="2.8" fill="#5b8dd9" opacity="0.8"></circle><circle cx="82" cy="80" r="2.4" fill="#5b8dd9" opacity="0.8"></circle><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(0 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(72 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(144 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(216 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="12" cy="6.0" rx="4.4" ry="8.0" transform="rotate(288 12 14)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="12" cy="14" r="4.0" fill="#d4e3ff"></circle><circle cx="12" cy="14" r="2.1" fill="#6f97e0"></circle><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(0 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(72 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(144 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(216 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="60" cy="32.0" rx="5.5" ry="10.0" transform="rotate(288 60 42)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="60" cy="42" r="5.0" fill="#d4e3ff"></circle><circle cx="60" cy="42" r="2.6" fill="#6f97e0"></circle><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(0 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(72 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(144 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(216 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="100" cy="25.0" rx="3.9" ry="7.0" transform="rotate(288 100 32)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="100" cy="32" r="3.5" fill="#d4e3ff"></circle><circle cx="100" cy="32" r="1.8" fill="#6f97e0"></circle><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(0 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(72 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(144 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(216 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="48" cy="75.0" rx="5.0" ry="9.0" transform="rotate(288 48 84)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="48" cy="84" r="4.5" fill="#d4e3ff"></circle><circle cx="48" cy="84" r="2.3" fill="#6f97e0"></circle><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(0 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(72 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(144 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(216 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="112" cy="112.0" rx="4.4" ry="8.0" transform="rotate(288 112 120)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="112" cy="120" r="4.0" fill="#d4e3ff"></circle><circle cx="112" cy="120" r="2.1" fill="#6f97e0"></circle></g><text x="301" y="58" text-anchor="middle" font-family="Cinzel,serif" font-size="26" fill="#d6e4ff" letter-spacing="2" filter="url(#titleGlow)">Famille Nightwalker</text><g transform="translate(301,82)"><line x1="-94" y1="0" x2="-14" y2="0" stroke="${accStroke}" stroke-width="1" opacity="0.7"></line><line x1="14" y1="0" x2="94" y2="0" stroke="${accStroke}" stroke-width="1" opacity="0.7"></line><ellipse cx="0" cy="-6.0" rx="3.3" ry="6.0" transform="rotate(0 0 0)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="0" cy="-6.0" rx="3.3" ry="6.0" transform="rotate(72 0 0)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="0" cy="-6.0" rx="3.3" ry="6.0" transform="rotate(144 0 0)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="0" cy="-6.0" rx="3.3" ry="6.0" transform="rotate(216 0 0)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="0" cy="-6.0" rx="3.3" ry="6.0" transform="rotate(288 0 0)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="0" cy="0" r="3.0" fill="#d4e3ff"></circle><circle cx="0" cy="0" r="1.6" fill="#6f97e0"></circle></g><g id="arbre-g" transform="translate(0,0) scale(1.0044095174463068)">
+    <g id="arbre-node-mqsb9g9q5dalgb96ytj" transform="translate(150,96)" style="cursor:pointer" onclick="selectArbreNode(&#39;mqsb9g9q5dalgb96ytj&#39;)" class="arbre-node">
+      <rect width="130" height="88" rx="14" fill="#0c1430" stroke="#5b8dd9" stroke-width="1.5" filter="url(#nodeShadow)"></rect>
+      <rect x="1.5" y="1.5" width="127" height="85" rx="12.5" fill="url(#nodeGrad)" opacity="0.6"></rect>
+      <circle cx="65" cy="26" r="16" fill="#142042" stroke="#5b8dd9" stroke-width="1.1" opacity="0.95"></circle>
+      <ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(0 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(72 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(144 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(216 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(288 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="65" cy="26" r="3.5" fill="#d4e3ff"></circle><circle cx="65" cy="26" r="1.8" fill="#6f97e0"></circle>
+      <text x="65" y="62" text-anchor="middle" font-size="13" fill="#d2e2ff" font-family="Cinzel,serif">Théo</text>
+      <text x="65" y="78" text-anchor="middle" font-size="10" fill="#7595d4" font-family="Inter,sans-serif" letter-spacing="0.5">Nightwalker</text>
+    </g>
+    <g id="arbre-node-mqshom2g9c5q3hck8gg" transform="translate(322,96)" style="cursor:pointer" onclick="selectArbreNode(&#39;mqshom2g9c5q3hck8gg&#39;)" class="arbre-node">
+      <rect width="130" height="88" rx="14" fill="#0c1430" stroke="#5b8dd9" stroke-width="1.5" filter="url(#nodeShadow)"></rect>
+      <rect x="1.5" y="1.5" width="127" height="85" rx="12.5" fill="url(#nodeGrad)" opacity="0.6"></rect>
+      <circle cx="65" cy="26" r="16" fill="#142042" stroke="#5b8dd9" stroke-width="1.1" opacity="0.95"></circle>
+      <ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(0 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(72 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(144 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(216 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><ellipse cx="65" cy="19.0" rx="3.9" ry="7.0" transform="rotate(288 65 26)" fill="url(#petalGrad)" stroke="#7aa3e8" stroke-width="0.6" opacity="0.95"></ellipse><circle cx="65" cy="26" r="3.5" fill="#d4e3ff"></circle><circle cx="65" cy="26" r="1.8" fill="#6f97e0"></circle>
+      <text x="65" y="62" text-anchor="middle" font-size="13" fill="#d2e2ff" font-family="Cinzel,serif">Madison</text>
+      <text x="65" y="78" text-anchor="middle" font-size="10" fill="#7595d4" font-family="Inter,sans-serif" letter-spacing="0.5">Nightwalker</text>
+    </g></g></svg>
+      <div id="arbre-empty" class="empty" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;"><div class="empty-icon">🌳</div>Ajoute des relations familiales pour voir l'arbre</div>
+    </div>
+  </div>
+</div>
+
+<!-- UNIVERS -->
+<div id="page-univers" class="page">
+  <div class="page-header">
+    <span class="page-title"><span class="page-title-dot" style="background:var(--c-univers)"></span>Lieux &amp; Magie</span>
+    <button class="btn btn-primary" style="--section-color:var(--c-univers)" onclick="openModal(&#39;lieu&#39;)">+ Nouveau lieu</button>
+  </div>
+  <div class="subtabs">
+    <button class="subtab active" onclick="switchSub(&#39;lieux&#39;,this)">Lieux</button>
+    <button class="subtab" onclick="switchSub(&#39;magie&#39;,this)">Système de magie</button>
+  </div>
+  <div id="sub-lieux" class="subpanel active">
+    <div id="lieu-list" class="grid-auto"><div class="world-card"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="world-name">◎ La Dent</div><div class="world-type">Montagne / gouffre</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;lieu&#39;,&#39;mqrykstfg430dg8isb&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delLieu(&#39;mqrykstfg430dg8isb&#39;)">✕</button></div></div><div class="world-desc" style="margin-top:8px">montagne en forme de croc de vampire</div></div><div class="world-card"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="world-name">◎ L'île de l'oubli</div><div class="world-type">Mer / île</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal(&#39;lieu&#39;,&#39;mqs8dsea8dcpkccf5cx&#39;)">✎</button><button class="btn btn-danger btn-sm" onclick="delLieu(&#39;mqs8dsea8dcpkccf5cx&#39;)">✕</button></div></div><div class="world-desc" style="margin-top:8px">île sombre, en plein milieu de la mer</div><div style="margin-top:7px"><span class="tag tag-purple" style="font-size:11px">✦ tous ceux qui s'y approchent par voie maritime, où qu'i…</span></div></div></div>
+  </div>
+  <div id="sub-magie" class="subpanel">
+    <div class="magie-block"><label>Nom du système</label><input type="text" id="m-nom" placeholder="La Source, l&#39;Éveil, les Runes..." oninput="saveMagie()"></div>
+    <div class="magie-block"><label>Source &amp; origine</label><textarea id="m-source" placeholder="D&#39;où vient la magie ? Comment est-elle accessible ?" oninput="saveMagie()"></textarea></div>
+    <div class="grid-2">
+      <div class="magie-block"><label>Capacités &amp; pouvoirs</label><textarea id="m-pouvoirs" placeholder="Ce qu&#39;on peut faire..." oninput="saveMagie()"></textarea></div>
+      <div class="magie-block"><label>Limites &amp; coûts</label><textarea id="m-limites" placeholder="Restrictions, contreparties..." oninput="saveMagie()"></textarea></div>
+    </div>
+    <div class="magie-block"><label>Règles &amp; lois</label><textarea id="m-regles" placeholder="Interdits, effets secondaires, rareté..." oninput="saveMagie()"></textarea></div>
+  </div>
+</div>
+
+<!-- FACTIONS -->
+<div id="page-factions" class="page">
+  <div class="page-header">
+    <span class="page-title"><span class="page-title-dot" style="background:var(--c-factions)"></span>Factions</span>
+    <button class="btn btn-primary" style="--section-color:var(--c-factions)" onclick="openModal(&#39;faction&#39;)">+ Nouvelle faction</button>
+  </div>
+  <div class="faction-hint">* Clique sur une carte de faction pour la déplier&nbsp;: le bouton «&nbsp;+ Sous-faction&nbsp;» apparaît alors en bas de la carte.</div>
+  <div id="faction-list" class=""><div class="empty"><div class="empty-icon">⚔</div>Aucune faction définie</div></div>
+</div>
+
+<!-- HISTOIRE -->
+<div id="page-histoire" class="page">
+  <div class="page-header"><span class="page-title"><span class="page-title-dot" style="background:var(--c-histoire)"></span>Histoire du monde</span></div>
+  <div class="card" style="border-left:3px solid var(--c-histoire)">
+    <div class="card-label">Chronologie &amp; contexte</div>
+    <div class="field"><label>Ère / époque actuelle</label><input type="text" id="h-ere" placeholder="L&#39;ère du Voile Brisé, an 847 de la Fondation..." oninput="saveHistoire()"></div>
+    <div class="field"><label>Événements fondateurs</label><textarea id="h-fondateurs" placeholder="Ce qui a façonné le monde tel qu&#39;il est..." oninput="saveHistoire()"></textarea></div>
+    <div class="field"><label>Guerres &amp; conflits majeurs</label><textarea id="h-conflits" placeholder="Les grandes fractures historiques..." oninput="saveHistoire()"></textarea></div>
+    <div class="field"><label>Légendes &amp; mythes</label><textarea id="h-mythes" placeholder="Ce que les gens croient, les héros du passé..." oninput="saveHistoire()"></textarea></div>
+    <div class="field"><label>Contexte au début du roman</label><textarea id="h-actuel" placeholder="Tensions, enjeux politiques, ce qui déclenche l&#39;histoire..." oninput="saveHistoire()"></textarea></div>
+  </div>
+</div>
+
+<!-- CHAPITRES -->
+<div id="page-chapitres" class="page">
+  <div class="page-header">
+    <span class="page-title"><span class="page-title-dot" style="background:var(--c-chap)"></span>Structure narrative</span>
+    <button class="btn btn-primary" style="--section-color:var(--c-chap)" onclick="openModal(&#39;chapitre&#39;)">+ Nouveau chapitre</button>
+  </div>
+  <div id="chap-list"><div class="empty"><div class="empty-icon">▤</div>Pas encore de chapitres</div></div>
+</div>
+
+<!-- IDÉES -->
+<div id="page-idees" class="page">
+  <div class="page-header">
+    <span class="page-title"><span class="page-title-dot" style="background:var(--c-idees)"></span>Idées en vrac</span>
+    <button class="btn btn-primary" style="--section-color:var(--c-idees)" onclick="openModal(&#39;idee&#39;)">+ Nouvelle idée</button>
+  </div>
+  <div id="idee-list"><div class="idee-item"><span class="tag tag-amber" style="flex-shrink:0;font-size:11px">Dialogue</span><span class="idee-text">- mais pk votre royaume ne s'appelle pas the berries kingdom ?</span><button class="btn btn-danger btn-sm" onclick="delIdee(&#39;mqtb5kebpdqwzda9y9g&#39;)">✕</button></div></div>
+</div>
+
+</main>
+
+<!-- MODAL PERSO -->
+<div class="modal-overlay" id="modal-perso">
+<div class="modal">
+  <div class="modal-header"><span class="modal-title" id="perso-modal-title">Nouveau personnage</span><button class="btn btn-ghost btn-sm" onclick="closeModal(&#39;perso&#39;)">✕</button></div>
+  <input type="hidden" id="p-edit-id">
+  <div class="grid-2"><div class="field"><label>Nom *</label><input type="text" id="p-nom" placeholder="Nom complet..."></div><div class="field"><label>Surnom / alias</label><input type="text" id="p-alias" placeholder="Ce qu&#39;on l&#39;appelle..."></div></div>
+  <div class="grid-2">
+    <div class="field"><label>Rôle</label><select id="p-role"><option value="">— Choisir —</option><option>Protagoniste</option><option>Antagoniste</option><option>Deutéragoniste</option><option>Mentor</option><option>Allié</option><option>Rival</option><option>Figure parentale</option><option>Soutien</option><option>Mystérieux</option></select></div>
+    <div class="field"><label>Espèce / race</label><input type="text" id="p-espece" placeholder="Humain, elfe, demi-dieu..."></div>
+  </div>
+  <div class="grid-2"><div class="field"><label>Âge</label><input type="text" id="p-age" placeholder="24 ans, immortel..."></div><div class="field"><label>Sexe / genre</label><input type="text" id="p-sexe" placeholder="..."></div></div>
+  <div class="field"><label>Apparence</label><textarea id="p-apparence" placeholder="Physique, tenue, particularités visuelles..."></textarea></div>
+  <div class="field"><label>Personnalité</label><textarea id="p-perso" placeholder="Traits de caractère, façon d&#39;être..."></textarea></div>
+  <div class="field"><label>Histoire &amp; passé</label><textarea id="p-passe" placeholder="Origine, trauma, événements clés..."></textarea></div>
+  <div class="field"><label>Motivations &amp; objectifs</label><textarea id="p-motiv" placeholder="Ce qu&#39;il veut, ce qu&#39;il craint..."></textarea></div>
+  <div class="field"><label>Pouvoirs &amp; compétences</label><textarea id="p-pouvoirs" placeholder="Magie, talents, armes..."></textarea></div>
+  <div class="field"><label>Arc narratif</label><textarea id="p-arc" placeholder="Comment évolue-t-il au fil du roman ?"></textarea></div>
+  <div class="field"><label>Couleur</label>
+    <div class="color-dots">
+      <div class="color-dot sel" data-color="purple" style="background:rgba(124,106,245,0.5)" onclick="pickColor(this)">✓</div>
+      <div class="color-dot" data-color="teal" style="background:rgba(77,184,164,0.5)" onclick="pickColor(this)"></div>
+      <div class="color-dot" data-color="amber" style="background:rgba(196,163,90,0.5)" onclick="pickColor(this)"></div>
+      <div class="color-dot" data-color="coral" style="background:rgba(224,123,84,0.5)" onclick="pickColor(this)"></div>
+      <div class="color-dot" data-color="green" style="background:rgba(124,184,124,0.5)" onclick="pickColor(this)"></div>
+      <div class="color-dot" data-color="pink" style="background:rgba(184,124,200,0.5)" onclick="pickColor(this)"></div>
+      <div class="color-dot" data-color="blue" style="background:rgba(91,156,246,0.5)" onclick="pickColor(this)"></div>
+    </div>
+    <input type="hidden" id="p-color" value="purple">
+  </div>
+  <div class="field"><label>Fichiers &amp; images</label>
+    <div class="dropzone" id="dz-perso" onclick="document.getElementById('dzi-perso').click()"><div class="dz-hint">📎 Glissez vos fichiers ici ou <span class="dz-browse">cliquez pour parcourir</span></div></div>
+    <input type="file" multiple class="dz-input" id="dzi-perso" onchange="handleFiles('perso',this.files);this.value=''">
+    <div class="file-grid" id="fg-perso"></div>
+  </div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal(&#39;perso&#39;)">Annuler</button><button class="btn btn-primary" style="--section-color:var(--c-perso)" onclick="savePerso()">Enregistrer</button></div>
+</div>
+</div>
+
+<!-- MODAL RELATION -->
+<div class="modal-overlay" id="modal-relation">
+<div class="modal">
+  <div class="modal-header"><span class="modal-title">Relation entre personnages</span><button class="btn btn-ghost btn-sm" onclick="closeModal(&#39;relation&#39;)">✕</button></div>
+  <input type="hidden" id="rel-edit-id">
+  <div class="grid-2"><div class="field"><label>Personnage A *</label><select id="rel-a"></select></div><div class="field"><label>Personnage B *</label><select id="rel-b"></select></div></div>
+  <div class="field"><label>Type de relation</label>
+    <select id="rel-type"><option value="">— Choisir —</option><option>Parent / enfant</option><option>Frère / sœur</option><option>Cousin(e)</option><option>Oncle · tante / neveu · nièce</option><option>Grand-parent / petit-enfant</option><option>Époux / épouse</option><option>Amant(e)</option><option>Ex</option><option>Ami(e) proche</option><option>Rival</option><option>Ennemi</option><option>Mentor / élève</option><option>Allié politique</option><option>Maître / serviteur</option><option>Liés par le destin</option><option>Autre</option></select>
+  </div>
+  <div class="field"><label>Description &amp; détails</label><textarea id="rel-desc" placeholder="Comment ce lien s&#39;est formé, comment il évolue..."></textarea></div>
+  <div class="field"><label>Dynamique / tension</label>
+    <select id="rel-tension"><option value="">— Choisir —</option><option>Amour</option><option>Confiance</option><option>Alliance fragile</option><option>Méfiance</option><option>Rivalité</option><option>Haine</option><option>Deuil</option><option>Secret partagé</option><option>Manipulation</option></select>
+  </div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal(&#39;relation&#39;)">Annuler</button><button class="btn btn-primary" style="--section-color:var(--c-relation)" onclick="saveRelation()">Enregistrer</button></div>
+</div>
+</div>
+
+<!-- MODAL LIEU -->
+<div class="modal-overlay" id="modal-lieu">
+<div class="modal">
+  <div class="modal-header"><span class="modal-title">Nouveau lieu</span><button class="btn btn-ghost btn-sm" onclick="closeModal(&#39;lieu&#39;)">✕</button></div>
+  <input type="hidden" id="l-edit-id">
+  <div class="grid-2"><div class="field"><label>Nom *</label><input type="text" id="l-nom" placeholder="Nom du lieu..."></div><div class="field"><label>Type</label><select id="l-type"><option value="">— Choisir —</option><option>Royaume / empire</option><option>Ville / cité</option><option>Village</option><option>Forêt / nature</option><option>Donjon / ruines</option><option>Temple / sanctuaire</option><option>Montagne / gouffre</option><option>Mer / île</option><option>Dimension / plan astral</option><option>Autre</option></select></div></div>
+  <div class="field"><label>Description &amp; ambiance</label><textarea id="l-desc" placeholder="Apparence, ce qu&#39;on ressent en y entrant..."></textarea></div>
+  <div class="field"><label>Histoire &amp; importance</label><textarea id="l-hist" placeholder="Rôle dans l&#39;univers, événements passés..."></textarea></div>
+  <div class="field"><label>Habitants / factions présentes</label><input type="text" id="l-hab" placeholder="Qui y vit ou y règne..."></div>
+  <div class="field"><label>Particularité magique / mystère</label><textarea id="l-magie" placeholder="Anomalie, malédiction, ressource unique..."></textarea></div>
+  <div class="field"><label>Fichiers &amp; images</label>
+    <div class="dropzone" id="dz-lieu" onclick="document.getElementById('dzi-lieu').click()"><div class="dz-hint">📎 Glissez vos fichiers ici ou <span class="dz-browse">cliquez pour parcourir</span></div></div>
+    <input type="file" multiple class="dz-input" id="dzi-lieu" onchange="handleFiles('lieu',this.files);this.value=''">
+    <div class="file-grid" id="fg-lieu"></div>
+  </div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal(&#39;lieu&#39;)">Annuler</button><button class="btn btn-primary" style="--section-color:var(--c-univers)" onclick="saveLieu()">Enregistrer</button></div>
+</div>
+</div>
+
+<!-- MODAL FACTION -->
+<div class="modal-overlay" id="modal-faction">
+<div class="modal">
+  <div class="modal-header"><span class="modal-title" id="faction-modal-title">Nouvelle faction</span><button class="btn btn-ghost btn-sm" onclick="closeModal(&#39;faction&#39;)">✕</button></div>
+  <input type="hidden" id="f-edit-id">
+  <input type="hidden" id="f-parent">
+  <div class="grid-2"><div class="field"><label>Nom *</label><input type="text" id="f-nom" placeholder="Nom de la faction..."></div><div class="field"><label>Type</label><select id="f-type"><option value="">— Choisir —</option><option>Royaume / nation</option><option>Ordre / guilde</option><option>Culte / religion</option><option>Clan / tribu</option><option>Organisation secrète</option><option>Alliance</option><option>Armée</option><option>Autre</option></select></div></div>
+  <div class="field"><label>Idéologie &amp; objectifs</label><textarea id="f-ideo" placeholder="Ce qu&#39;ils veulent, en quoi ils croient..."></textarea></div>
+  <div class="field"><label>Alliés &amp; ennemis</label><input type="text" id="f-relations" placeholder="Avec qui ils sont en lien..."></div>
+  <div class="field"><label>Symbole &amp; signes distinctifs</label><input type="text" id="f-symbole" placeholder="Emblème, couleurs, rituels..."></div>
+  <div class="field"><label>Rôle dans le roman</label><textarea id="f-role" placeholder="Comment cette faction affecte l&#39;intrigue..."></textarea></div>
+  <div class="field"><label>Fichiers &amp; images</label>
+    <div class="dropzone" id="dz-faction" onclick="document.getElementById('dzi-faction').click()"><div class="dz-hint">📎 Glissez vos fichiers ici ou <span class="dz-browse">cliquez pour parcourir</span></div></div>
+    <input type="file" multiple class="dz-input" id="dzi-faction" onchange="handleFiles('faction',this.files);this.value=''">
+    <div class="file-grid" id="fg-faction"></div>
+  </div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal(&#39;faction&#39;)">Annuler</button><button class="btn btn-primary" style="--section-color:var(--c-factions)" onclick="saveFaction()">Enregistrer</button></div>
+</div>
+</div>
+
+<!-- MODAL CHAPITRE -->
+<div class="modal-overlay" id="modal-chapitre">
+<div class="modal">
+  <div class="modal-header"><span class="modal-title" id="chap-modal-title">Nouveau chapitre</span><button class="btn btn-ghost btn-sm" onclick="closeModal(&#39;chapitre&#39;)">✕</button></div>
+  <input type="hidden" id="c-edit-id">
+  <div class="grid-2"><div class="field"><label>Numéro</label><input type="text" id="c-num" placeholder="1, Prologue..."></div><div class="field"><label>Titre</label><input type="text" id="c-titre" placeholder="Titre provisoire..."></div></div>
+  <div class="field"><label>Résumé &amp; enjeux</label><textarea id="c-resume" placeholder="Ce qui se passe dans ce chapitre..."></textarea></div>
+  <div class="grid-2"><div class="field"><label>Point de vue</label><input type="text" id="c-pdv" placeholder="Personnage narrateur..."></div><div class="field"><label>Lieu(x)</label><input type="text" id="c-lieux" placeholder="Où ça se passe..."></div></div>
+  <div class="field"><label>Statut</label><select id="c-statut"><option value="idee">Idée</option><option value="brouillon">Brouillon</option><option value="redige">Rédigé</option><option value="final">Final</option></select></div>
+  <div class="field"><label>Notes &amp; scènes clés</label><textarea id="c-notes" placeholder="Révélations, tensions, moments importants..."></textarea></div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal(&#39;chapitre&#39;)">Annuler</button><button class="btn btn-primary" style="--section-color:var(--c-chap)" onclick="saveChapitre()">Enregistrer</button></div>
+</div>
+</div>
+
+<!-- MODAL ARBRE -->
+<div class="modal-overlay" id="modal-arbre">
+<div class="modal">
+  <div class="modal-header"><span class="modal-title" id="arbre-modal-title">Nouvel arbre</span><button class="btn btn-ghost btn-sm" onclick="closeModal(&#39;arbre&#39;)">✕</button></div>
+  <input type="hidden" id="arbre-edit-id">
+  <div class="field"><label>Nom de l'arbre *</label><input type="text" id="arbre-nom" placeholder="Ex. Maison Blueberry, Lignée royale..."></div>
+  <div class="field"><label>Motif décoratif</label><select id="arbre-motif"></select><div style="font-size:11px;color:var(--text3);margin-top:5px">Le motif reprend la couleur de chaque carte personnage ; les décors d'angle et du titre reprennent la couleur dominante de l'arbre.</div></div>
+  <div class="field"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:normal"><input type="checkbox" id="arbre-branches" style="width:auto;margin:0;accent-color:var(--c-relation)" checked> Afficher les branches décoratives dans les coins</label></div>
+  <div class="field"><label>Relations à inclure</label>
+    <div class="arbre-choose-actions"><button type="button" onclick="arbreCheckAll(true)">Tout cocher</button><button type="button" onclick="arbreCheckAll(false)">Tout décocher</button></div>
+    <div id="arbre-rel-choose" class="arbre-rel-choose"></div>
+  </div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal(&#39;arbre&#39;)">Annuler</button><button class="btn btn-primary" style="--section-color:var(--c-relation)" onclick="saveArbre()">Enregistrer</button></div>
+</div>
+</div>
+
+<!-- MODAL IDÉE -->
+<div class="modal-overlay" id="modal-idee">
+<div class="modal">
+  <div class="modal-header"><span class="modal-title">Nouvelle idée</span><button class="btn btn-ghost btn-sm" onclick="closeModal(&#39;idee&#39;)">✕</button></div>
+  <div class="field"><label>Catégorie</label><select id="i-cat"><option value="intrigue">Intrigue</option><option value="perso">Personnage</option><option value="univers">Univers</option><option value="dialogue">Dialogue / scène</option><option value="magie">Magie</option><option value="twist">Twist / révélation</option><option value="ambiance">Ambiance / description</option><option value="autre">Autre</option></select></div>
+  <div class="field"><label>Idée *</label><textarea id="i-texte" placeholder="Capture ton idée ici, sans filtre..." style="min-height:120px"></textarea></div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal(&#39;idee&#39;)">Annuler</button><button class="btn btn-primary" style="--section-color:var(--c-idees)" onclick="saveIdee()">Enregistrer</button></div>
+</div>
+</div>
+
+<script>
+function applyThemeLabel(){const b=document.getElementById('theme-toggle');if(!b)return;const light=document.documentElement.getAttribute('data-theme')==='light';b.textContent=light?'☀ Mode clair':'🌙 Mode sombre';}
+function toggleTheme(){const root=document.documentElement;const light=root.getAttribute('data-theme')==='light';if(light){root.removeAttribute('data-theme');try{localStorage.setItem('grimoire_theme','dark');}catch(e){}}else{root.setAttribute('data-theme','light');try{localStorage.setItem('grimoire_theme','light');}catch(e){}}applyThemeLabel();}
+document.addEventListener('DOMContentLoaded',applyThemeLabel);
+const COLORS={purple:{av:'av-purple',tag:'tag-purple'},teal:{av:'av-teal',tag:'tag-teal'},amber:{av:'av-amber',tag:'tag-amber'},coral:{av:'av-coral',tag:'tag-coral'},green:{av:'av-green',tag:'tag-green'},pink:{av:'av-pink',tag:'tag-pink'},blue:{av:'av-blue',tag:'tag-blue'}};
+const AV_HEX={purple:'#a89ef7',teal:'#4db8a4',amber:'#c4a35a',coral:'#e07b54',green:'#7cb87c',pink:'#b87cc8',blue:'#5b9cf6'};
+const ARBRE_FAM_TYPES=['Époux / épouse','Amant(e)','Ex','Parent / enfant','Grand-parent / petit-enfant','Frère / sœur','Cousin(e)','Oncle · tante / neveu · nièce'];
+function hx2rgb(h){h=(h||'#000').replace('#','');return {r:parseInt(h.slice(0,2),16),g:parseInt(h.slice(2,4),16),b:parseInt(h.slice(4,6),16)};}
+function rgb2hx(r,g,b){const f=v=>('0'+Math.max(0,Math.min(255,Math.round(v))).toString(16)).slice(-2);return '#'+f(r)+f(g)+f(b);}
+function mixCol(h1,h2,t){const a=hx2rgb(h1),b=hx2rgb(h2);return rgb2hx(a.r*t+b.r*(1-t),a.g*t+b.g*(1-t),a.b*t+b.b*(1-t));}
+// Dégradé de fond mélangeant (en sombre) les couleurs des personnages de l'arbre
+function arbreBgGradient(colorNames){
+  const base='#060c1a';
+  const cols=(colorNames&&colorNames.length?colorNames:['blue']).map(c=>AV_HEX[c]||AV_HEX.blue);
+  let stops;
+  if(cols.length===1){
+    stops=`<stop offset="0%" stop-color="${mixCol(cols[0],base,0.34)}"/><stop offset="100%" stop-color="${mixCol(cols[0],base,0.12)}"/>`;
+  }else{
+    stops=cols.map((c,i)=>`<stop offset="${Math.round(i/(cols.length-1)*100)}%" stop-color="${mixCol(c,base,0.27)}"/>`).join('');
+  }
+  return `<linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">${stops}</linearGradient>`;
+}
+// === Motifs décoratifs de l'arbre généalogique ===
+// Chaque motif est dessiné dans la couleur passée (couleur de la carte du personnage).
+const ARBRE_MOTIFS=[
+  {id:'fleur', label:'❀ Fleur'},
+  {id:'dague', label:'⚔ Dague'},
+  {id:'sort',  label:'✦ Sort (paillettes)'},
+  {id:'lune',  label:'☾ Lune'},
+  {id:'etoile',label:'★ Étoile'},
+  {id:'potion',label:'⚗ Potion'},
+  {id:'goutte',label:'🩸 Goutte de sang'},
+  {id:'cercle',label:'◍ Cercle magique'}
+];
+function motifSvg(type,cx,cy,s,color){
+  const c=color||'#7aa3e8';
+  const lite=mixCol(c,'#ffffff',0.55), deep=mixCol(c,'#0a1428',0.45), st=mixCol(c,'#ffffff',0.30);
+  const f=n=>(+n).toFixed(1);
+  const star4=(x,y,r,fill)=>`<path d="M${f(x)},${f(y-r)} L${f(x+0.26*r)},${f(y-0.26*r)} L${f(x+r)},${f(y)} L${f(x+0.26*r)},${f(y+0.26*r)} L${f(x)},${f(y+r)} L${f(x-0.26*r)},${f(y+0.26*r)} L${f(x-r)},${f(y)} L${f(x-0.26*r)},${f(y-0.26*r)} Z" fill="${fill}"/>`;
+  const star5=(x,y,R,ri,fill,stroke)=>{let pts='';for(let k=0;k<10;k++){const ang=-Math.PI/2+k*Math.PI/5,rr=(k%2)?ri:R;pts+=`${f(x+Math.cos(ang)*rr)},${f(y+Math.sin(ang)*rr)} `;}return `<polygon points="${pts.trim()}" fill="${fill}" stroke="${stroke||'none'}" stroke-width="0.5"/>`;};
+  switch(type){
+    case 'dague':
+      return `<path d="M${f(cx)},${f(cy-1.45*s)} L${f(cx+0.26*s)},${f(cy+0.34*s)} L${f(cx-0.26*s)},${f(cy+0.34*s)} Z" fill="${lite}" stroke="${st}" stroke-width="0.5"/>`
+        +`<rect x="${f(cx-0.62*s)}" y="${f(cy+0.32*s)}" width="${f(1.24*s)}" height="${f(0.20*s)}" rx="${f(0.08*s)}" fill="${c}"/>`
+        +`<rect x="${f(cx-0.12*s)}" y="${f(cy+0.52*s)}" width="${f(0.24*s)}" height="${f(0.66*s)}" fill="${deep}"/>`
+        +`<circle cx="${f(cx)}" cy="${f(cy+1.28*s)}" r="${f(0.2*s)}" fill="${c}"/>`;
+    case 'sort':
+      return star4(cx,cy,s*1.05,lite)+star4(cx+0.95*s,cy-0.72*s,s*0.5,c)+star4(cx-0.88*s,cy+0.62*s,s*0.46,c)
+        +`<circle cx="${f(cx+0.72*s)}" cy="${f(cy+0.78*s)}" r="${f(0.13*s)}" fill="${lite}"/>`;
+    case 'lune':{
+      // Croissant = disque externe (R) moins un disque interne (Ri) décalé de dx.
+      const R=s*1.12, Ri=s*0.95, dx=s*0.66;
+      const xi=(dx*dx+R*R-Ri*Ri)/(2*dx);            // x des pointes (relatif à cx)
+      const yi=Math.sqrt(Math.max(0,R*R-xi*xi));    // y des pointes
+      const tx=cx+xi;
+      return `<path d="M${f(tx)},${f(cy-yi)} A${f(R)},${f(R)} 0 1 0 ${f(tx)},${f(cy+yi)} A${f(Ri)},${f(Ri)} 0 0 1 ${f(tx)},${f(cy-yi)} Z" fill="${c}" stroke="${st}" stroke-width="0.5"/>`
+        +star4(cx+0.95*s,cy-0.78*s,s*0.26,lite);
+    }
+    case 'goutte':{
+      const top=cy-1.28*s, bot=cy+0.96*s, w=0.78*s;
+      return `<path d="M${f(cx)},${f(top)} C${f(cx+w)},${f(cy-0.05*s)} ${f(cx+w)},${f(cy+0.58*s)} ${f(cx)},${f(bot)} C${f(cx-w)},${f(cy+0.58*s)} ${f(cx-w)},${f(cy-0.05*s)} ${f(cx)},${f(top)} Z" fill="${c}" stroke="${st}" stroke-width="0.5"/>`
+        +`<ellipse cx="${f(cx-0.22*s)}" cy="${f(cy+0.42*s)}" rx="${f(0.15*s)}" ry="${f(0.27*s)}" fill="${lite}" opacity="0.8" transform="rotate(-18 ${f(cx-0.22*s)} ${f(cy+0.42*s)})"/>`;
+    }
+    case 'etoile':
+      return star5(cx,cy,s*1.15,s*0.46,c,st)+`<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(s*0.2)}" fill="${lite}"/>`;
+    case 'potion':{
+      const by=cy+0.28*s;
+      return `<rect x="${f(cx-0.18*s)}" y="${f(cy-1.05*s)}" width="${f(0.36*s)}" height="${f(0.9*s)}" fill="${deep}" stroke="${st}" stroke-width="0.4"/>`
+        +`<circle cx="${f(cx)}" cy="${f(by)}" r="${f(0.78*s)}" fill="${c}" stroke="${st}" stroke-width="0.5"/>`
+        +`<ellipse cx="${f(cx-0.26*s)}" cy="${f(by-0.26*s)}" rx="${f(0.14*s)}" ry="${f(0.24*s)}" fill="${lite}" opacity="0.85" transform="rotate(-32 ${f(cx-0.26*s)} ${f(by-0.26*s)})"/>`
+        +`<rect x="${f(cx-0.24*s)}" y="${f(cy-1.28*s)}" width="${f(0.48*s)}" height="${f(0.26*s)}" rx="${f(0.06*s)}" fill="${st}"/>`;
+    }
+    case 'cercle':{
+      let g=`<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(s*1.05)}" fill="none" stroke="${c}" stroke-width="${f(s*0.12)}"/>`
+        +`<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(s*0.66)}" fill="none" stroke="${st}" stroke-width="${f(s*0.07)}"/>`;
+      for(let k=0;k<8;k++){const a=k*Math.PI/4;g+=`<circle cx="${f(cx+Math.cos(a)*s*1.05)}" cy="${f(cy+Math.sin(a)*s*1.05)}" r="${f(s*0.085)}" fill="${lite}"/>`;}
+      return g+star5(cx,cy,s*0.55,s*0.22,c,'none');
+    }
+    case 'fleur':
+    default:{
+      let p='';
+      for(let k=0;k<5;k++){p+=`<ellipse cx="${f(cx)}" cy="${f(cy-s)}" rx="${f(s*0.55)}" ry="${f(s)}" transform="rotate(${k*72} ${f(cx)} ${f(cy)})" fill="${c}" stroke="${st}" stroke-width="0.5"/>`;}
+      return p+`<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(s*0.5)}" fill="${lite}"/><circle cx="${f(cx)}" cy="${f(cy)}" r="${f(s*0.26)}" fill="${deep}"/>`;
+    }
+  }
+}
+const TENSION_TAG={'Amour':'tag-coral','Confiance':'tag-teal','Alliance fragile':'tag-amber','Méfiance':'tag-amber','Rivalité':'tag-red','Haine':'tag-red','Deuil':'tag-purple','Secret partagé':'tag-purple','Manipulation':'tag-pink','':'tag-blue'};
+const CAT_TAG={intrigue:'tag-blue',perso:'tag-coral',univers:'tag-teal',dialogue:'tag-amber',magie:'tag-purple',twist:'tag-pink',ambiance:'tag-green',autre:'tag-blue'};
+const CAT_LABEL={intrigue:'Intrigue',perso:'Personnage',univers:'Univers',dialogue:'Dialogue',magie:'Magie',twist:'Twist',ambiance:'Ambiance',autre:'Autre'};
+
+const FAMILY_TYPES=['Parent / enfant','Frère / sœur','Cousin(e)','Oncle · tante / neveu · nièce','Grand-parent / petit-enfant','Époux / épouse','Amant(e)'];
+const LINE_COLORS={'Parent / enfant':'#c4a35a','Grand-parent / petit-enfant':'#c4a35a','Frère / sœur':'#4db8a4','Cousin(e)':'#4db8a4','Oncle · tante / neveu · nièce':'#4db8a4','Époux / épouse':'#e07b54','Amant(e)':'#e07b54'};
+
+let S={roman:{},magie:{},histoire:{},personnages:[],relations:[],lieux:[],factions:[],chapitres:[],idees:[],arbres:[]};
+
+function load(){try{const d=localStorage.getItem('grimoire_v2');if(d)S=JSON.parse(d);}catch(e){}if(!Array.isArray(S.arbres))S.arbres=[];arbreCurrentId=(typeof S.arbreCurrentId==='string')?S.arbreCurrentId:'__all__';renderAll();}
+// Copie de l'état sans les fichiers joints (pour le repli localStorage si les images sont trop lourdes)
+function stripFiles(state){
+  const light={};for(const k in state)light[k]=state[k];
+  ['personnages','lieux','factions'].forEach(k=>{if(Array.isArray(state[k]))light[k]=state[k].map(e=>{const c={};for(const p in e)if(p!=='fichiers')c[p]=e[p];return c;});});
+  return light;
+}
+function save(){
+  try{localStorage.setItem('grimoire_v2',JSON.stringify(S));return true;}
+  catch(e){
+    // Images trop volumineuses pour la sauvegarde auto du navigateur : on garde au moins le texte en local.
+    try{localStorage.setItem('grimoire_v2',JSON.stringify(stripFiles(S)));}catch(e2){}
+    if(!save._warned){save._warned=true;
+      alert("ℹ️ Tes images sont trop lourdes pour la sauvegarde automatique du navigateur.\n\nTout reste affiché et fonctionne normalement maintenant. Mais pour les conserver, clique sur « ⬇ Exporter » : le fichier .json garde bien tes images/blasons, et « ⬆ Importer » les restaurera à tout moment.");}
+    return false;
+  }
+}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
+
+// === FICHIERS JOINTS (drag & drop) ===
+let modalFiles={perso:[],lieu:[],faction:[]};
+function handleFiles(type,fileList){
+  const files=Array.from(fileList||[]);
+  if(!files.length)return;
+  let pending=files.length;
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      modalFiles[type].push({name:file.name,mime:file.type||'',data:e.target.result});
+      if(--pending===0)renderFilePreviews(type);
+    };
+    reader.onerror=()=>{if(--pending===0)renderFilePreviews(type);};
+    reader.readAsDataURL(file);
+  });
+}
+function removeFile(type,i,ev){if(ev)ev.stopPropagation();modalFiles[type].splice(i,1);renderFilePreviews(type);}
+function openFile(type,i){
+  const f=modalFiles[type][i];if(!f)return;
+  const w=window.open();
+  if(w)w.document.write('<title>'+f.name+'</title><body style="margin:0;background:#0a0e1a;display:flex;align-items:center;justify-content:center;height:100vh">'+((f.mime||'').startsWith('image/')?'<img src="'+f.data+'" style="max-width:100%;max-height:100%">':'<iframe src="'+f.data+'" style="width:100%;height:100%;border:none"></iframe>')+'</body>');
+}
+function renderFilePreviews(type){
+  const grid=document.getElementById('fg-'+type);if(!grid)return;
+  grid.innerHTML=modalFiles[type].map((f,i)=>{
+    const isImg=(f.mime||'').startsWith('image/');
+    const thumb=isImg?`<img class="file-thumb" src="${f.data}">`:`<div class="file-icon">📄</div>`;
+    return `<div class="file-chip" onclick="openFile('${type}',${i})" title="${f.name}">${thumb}<div class="file-name">${f.name}</div><button class="file-del" onclick="removeFile('${type}',${i},event)">✕</button></div>`;
+  }).join('');
+}
+function fileBadge(ent){const n=ent.fichiers?ent.fichiers.length:0;return n?`<div class="card-files">📎 ${n} fichier${n>1?'s':''}</div>`:'';}
+function loadModalFiles(type,ent){
+  modalFiles[type]=(ent&&Array.isArray(ent.fichiers))?ent.fichiers.map(f=>({...f})):[];
+  renderFilePreviews(type);
+}
+// Active le glisser-déposer sur les trois zones
+['perso','lieu','faction'].forEach(type=>{
+  document.addEventListener('DOMContentLoaded',()=>{
+    const dz=document.getElementById('dz-'+type);if(!dz)return;
+    dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag');});
+    dz.addEventListener('dragleave',()=>dz.classList.remove('drag'));
+    dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag');handleFiles(type,e.dataTransfer.files);});
+  });
+});
+
+function renderAll(){loadRoman();loadMagie();loadHistoire();renderPersos();renderRelations();renderLieux();renderFactions();renderChapitres();renderIdees();updateStats();renderAvancement();}
+
+function goTo(page,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  el.classList.add('active');
+}
+function switchSub(id,el){
+  document.querySelectorAll('.subpanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.subtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sub-'+id).classList.add('active');
+  el.classList.add('active');
+}
+function switchRelTab(id,el){
+  document.querySelectorAll('.rel-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.rel-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('rel-panel-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='arbre')renderArbre();
+}
+
+function openModal(type,id,parentId){
+  if(type==='perso'){
+    document.getElementById('p-edit-id').value='';
+    document.getElementById('perso-modal-title').textContent='Nouveau personnage';
+    ['nom','alias','espece','age','sexe','apparence','perso','passe','motiv','pouvoirs','arc'].forEach(f=>document.getElementById('p-'+f).value='');
+    document.getElementById('p-role').value='';
+    document.getElementById('p-color').value='purple';
+    document.querySelectorAll('.color-dot').forEach(d=>{d.classList.remove('sel');d.textContent='';});
+    document.querySelector('[data-color="purple"]').classList.add('sel');
+    document.querySelector('[data-color="purple"]').textContent='✓';
+    if(id){const p=S.personnages.find(x=>x.id===id);if(p){
+      document.getElementById('p-edit-id').value=id;
+      document.getElementById('perso-modal-title').textContent='Modifier personnage';
+      ['nom','alias','espece','age','sexe','apparence','arc'].forEach(f=>document.getElementById('p-'+f).value=p[f]||'');
+      document.getElementById('p-perso').value=p.personnalite||'';
+      document.getElementById('p-passe').value=p.passe||'';
+      document.getElementById('p-motiv').value=p.motiv||'';
+      document.getElementById('p-pouvoirs').value=p.pouvoirs||'';
+      document.getElementById('p-role').value=p.role||'';
+      const c=p.color||'purple';
+      document.getElementById('p-color').value=c;
+      document.querySelectorAll('.color-dot').forEach(d=>{d.classList.remove('sel');d.textContent='';});
+      const dot=document.querySelector('[data-color="'+c+'"]');
+      if(dot){dot.classList.add('sel');dot.textContent='✓';}
+    }}
+  }
+  if(type==='relation'){
+    document.getElementById('rel-edit-id').value='';
+    ['rel-a','rel-b'].forEach(sid=>{const s=document.getElementById(sid);s.innerHTML='<option value="">—</option>';S.personnages.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.nom;s.appendChild(o);});});
+    document.getElementById('rel-type').value='';document.getElementById('rel-desc').value='';document.getElementById('rel-tension').value='';
+    if(id){const r=S.relations.find(x=>x.id===id);if(r){document.getElementById('rel-edit-id').value=id;document.getElementById('rel-a').value=r.a;document.getElementById('rel-b').value=r.b;document.getElementById('rel-type').value=r.type;document.getElementById('rel-desc').value=r.desc||'';document.getElementById('rel-tension').value=r.tension||'';}}
+  }
+  if(type==='lieu'){
+    document.getElementById('l-edit-id').value='';
+    ['nom','desc','hist','hab','magie'].forEach(f=>document.getElementById('l-'+f).value='');
+    document.getElementById('l-type').value='';
+    if(id){const l=S.lieux.find(x=>x.id===id);if(l){document.getElementById('l-edit-id').value=id;document.getElementById('l-nom').value=l.nom||'';document.getElementById('l-type').value=l.type||'';document.getElementById('l-desc').value=l.desc||'';document.getElementById('l-hist').value=l.hist||'';document.getElementById('l-hab').value=l.hab||'';document.getElementById('l-magie').value=l.magie||'';}}
+  }
+  if(type==='faction'){
+    document.getElementById('f-edit-id').value='';
+    document.getElementById('f-parent').value=parentId||'';
+    ['nom','ideo','relations','symbole','role'].forEach(f=>document.getElementById('f-'+f).value='');
+    document.getElementById('f-type').value='';
+    document.getElementById('faction-modal-title').textContent=parentId?'Nouvelle sous-faction':'Nouvelle faction';
+    if(id){const f=S.factions.find(x=>x.id===id);if(f){document.getElementById('f-edit-id').value=id;document.getElementById('f-parent').value=f.parent||'';document.getElementById('faction-modal-title').textContent=f.parent?'Modifier sous-faction':'Modifier faction';document.getElementById('f-nom').value=f.nom||'';document.getElementById('f-type').value=f.type||'';document.getElementById('f-ideo').value=f.ideo||'';document.getElementById('f-relations').value=f.relations||'';document.getElementById('f-symbole').value=f.symbole||'';document.getElementById('f-role').value=f.role||'';}}
+  }
+  if(type==='chapitre'){
+    document.getElementById('c-edit-id').value='';
+    document.getElementById('chap-modal-title').textContent='Nouveau chapitre';
+    ['num','titre','resume','pdv','lieux','notes'].forEach(f=>document.getElementById('c-'+f).value='');
+    document.getElementById('c-statut').value='idee';
+    if(id){const c=S.chapitres.find(x=>x.id===id);if(c){document.getElementById('c-edit-id').value=id;document.getElementById('chap-modal-title').textContent='Modifier chapitre';document.getElementById('c-num').value=c.num||'';document.getElementById('c-titre').value=c.titre||'';document.getElementById('c-resume').value=c.resume||'';document.getElementById('c-pdv').value=c.pdv||'';document.getElementById('c-lieux').value=c.lieux||'';document.getElementById('c-statut').value=c.statut||'idee';document.getElementById('c-notes').value=c.notes||'';}}
+  }
+  if(type==='idee'){document.getElementById('i-texte').value='';document.getElementById('i-cat').value='intrigue';}
+  if(type==='perso'||type==='lieu'||type==='faction'){
+    let ent=null;
+    if(id){const arr=type==='perso'?S.personnages:(type==='lieu'?S.lieux:S.factions);ent=arr.find(x=>x.id===id);}
+    loadModalFiles(type,ent);
+  }
+  document.getElementById('modal-'+type).classList.add('open');
+}
+function closeModal(t){document.getElementById('modal-'+t).classList.remove('open');}
+function pickColor(el){document.querySelectorAll('.color-dot').forEach(d=>{d.classList.remove('sel');d.textContent='';});el.classList.add('sel');el.textContent='✓';document.getElementById('p-color').value=el.dataset.color;}
+
+// DATA SAVERS
+function saveRoman(){S.roman={titre:document.getElementById('r-titre').value,genre:document.getElementById('r-genre').value,ton:document.getElementById('r-ton').value,pitch:document.getElementById('r-pitch').value,themes:document.getElementById('r-themes').value};document.getElementById('sb-titre').textContent=S.roman.titre||'Mon roman';document.getElementById('sb-genre').textContent=S.roman.genre||'Fantasy';save();}
+function loadRoman(){if(!S.roman)return;['titre','genre','ton','pitch','themes'].forEach(f=>{const e=document.getElementById('r-'+f);if(e)e.value=S.roman[f]||'';});document.getElementById('sb-titre').textContent=S.roman.titre||'Mon roman';document.getElementById('sb-genre').textContent=S.roman.genre||'Fantasy';}
+function saveMagie(){S.magie={nom:document.getElementById('m-nom').value,source:document.getElementById('m-source').value,pouvoirs:document.getElementById('m-pouvoirs').value,limites:document.getElementById('m-limites').value,regles:document.getElementById('m-regles').value};save();}
+function loadMagie(){if(!S.magie)return;['nom','source','pouvoirs','limites','regles'].forEach(f=>{const e=document.getElementById('m-'+f);if(e)e.value=S.magie[f]||'';});}
+function saveHistoire(){S.histoire={ere:document.getElementById('h-ere').value,fondateurs:document.getElementById('h-fondateurs').value,conflits:document.getElementById('h-conflits').value,mythes:document.getElementById('h-mythes').value,actuel:document.getElementById('h-actuel').value};save();}
+function loadHistoire(){if(!S.histoire)return;['ere','fondateurs','conflits','mythes','actuel'].forEach(f=>{const e=document.getElementById('h-'+f);if(e)e.value=S.histoire[f]||'';});}
+
+// PERSONNAGES
+function savePerso(){
+  const nom=document.getElementById('p-nom').value.trim();if(!nom)return;
+  const editId=document.getElementById('p-edit-id').value;
+  const p={id:editId||uid(),nom,alias:document.getElementById('p-alias').value,role:document.getElementById('p-role').value,espece:document.getElementById('p-espece').value,age:document.getElementById('p-age').value,sexe:document.getElementById('p-sexe').value,apparence:document.getElementById('p-apparence').value,personnalite:document.getElementById('p-perso').value,passe:document.getElementById('p-passe').value,motiv:document.getElementById('p-motiv').value,pouvoirs:document.getElementById('p-pouvoirs').value,arc:document.getElementById('p-arc').value,color:document.getElementById('p-color').value,fichiers:modalFiles.perso};
+  if(editId){const i=S.personnages.findIndex(x=>x.id===editId);if(i>=0)S.personnages[i]=p;}else S.personnages.push(p);
+  save();closeModal('perso');renderPersos();updateStats();
+}
+function delPerso(id){S.personnages=S.personnages.filter(x=>x.id!==id);S.relations=S.relations.filter(r=>r.a!==id&&r.b!==id);save();renderPersos();renderRelations();updateStats();}
+function renderPersos(){
+  const el=document.getElementById('perso-list');
+  if(!S.personnages.length){el.className='';el.innerHTML='<div class="empty"><div class="empty-icon">◈</div>Aucun personnage</div>';return;}
+  el.className='grid-auto';
+  el.innerHTML=S.personnages.map(p=>{
+    const c=COLORS[p.color||'purple'];
+    const init=p.nom.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    return`<div class="perso-card"><div class="perso-head"><div class="avatar ${c.av}">${init}</div><div style="flex:1;min-width:0"><div class="perso-name">${p.nom}${p.alias?` <span class="tag ${c.tag}" style="font-size:10px;vertical-align:middle">${p.alias}</span>`:''}</div><div class="perso-meta">${[p.role,p.espece,p.age].filter(Boolean).join(' · ')}</div></div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal('perso','${p.id}')">✎</button><button class="btn btn-danger btn-sm" onclick="delPerso('${p.id}')">✕</button></div></div>${p.personnalite||p.pouvoirs?`<div class="perso-body">${p.personnalite?`<div style="margin-bottom:${p.pouvoirs?'7px':'0'}">${p.personnalite.slice(0,110)}${p.personnalite.length>110?'…':''}</div>`:''}${p.pouvoirs?`<span class="tag ${c.tag}" style="font-size:11px">✦ ${p.pouvoirs.slice(0,55)}${p.pouvoirs.length>55?'…':''}</span>`:''}</div>`:''}${fileBadge(p)}</div>`;
+  }).join('');
+}
+
+// RELATIONS
+function saveRelation(){
+  const a=document.getElementById('rel-a').value,b=document.getElementById('rel-b').value;
+  if(!a||!b||a===b)return;
+  const editId=document.getElementById('rel-edit-id').value;
+  const r={id:editId||uid(),a,b,type:document.getElementById('rel-type').value,desc:document.getElementById('rel-desc').value,tension:document.getElementById('rel-tension').value};
+  if(editId){const i=S.relations.findIndex(x=>x.id===editId);if(i>=0)S.relations[i]=r;}else S.relations.push(r);
+  save();closeModal('relation');renderRelations();updateStats();
+}
+function delRelation(id){S.relations=S.relations.filter(x=>x.id!==id);save();renderRelations();updateStats();}
+function renderRelations(){
+  const el=document.getElementById('rel-list');
+  if(!S.relations.length){el.innerHTML='<div class="empty"><div class="empty-icon">⟷</div>Ajoute des personnages puis crée des liens entre eux</div>';return;}
+  el.innerHTML=S.relations.map(r=>{
+    const pA=S.personnages.find(p=>p.id===r.a),pB=S.personnages.find(p=>p.id===r.b);
+    if(!pA||!pB)return'';
+    const cA=COLORS[pA.color||'purple'],cB=COLORS[pB.color||'purple'];
+    return`<div class="rel-item"><span class="tag ${cA.tag}">${pA.nom}</span><span class="rel-arrow">⟷</span><span class="tag ${cB.tag}">${pB.nom}</span><span class="rel-type">${r.type||''}</span>${r.tension?`<span class="tag ${TENSION_TAG[r.tension]||'tag-blue'}">${r.tension}</span>`:''}<div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal('relation','${r.id}')">✎</button><button class="btn btn-danger btn-sm" onclick="delRelation('${r.id}')">✕</button></div></div>`;
+  }).join('');
+}
+
+// ARBRE GÉNÉALOGIQUE
+let arbreZoom=1,arbrePanX=0,arbrePanY=0,arbreDragging=false,arbreLastX=0,arbreLastY=0;
+let arbreSelectedId=null,arbreViewW=0,arbreViewH=0,arbreCurrentId='__all__';
+
+function renderArbre(){
+  const svg=document.getElementById('arbre-svg');
+  const emptyEl=document.getElementById('arbre-empty');
+  renderArbreSelect();
+
+  const COUPLE_TYPES=['Époux / épouse','Amant(e)','Ex'];
+  const PARENT_TYPE='Parent / enfant';
+  const GRAND_TYPE='Grand-parent / petit-enfant';
+  const SIBLING_TYPE='Frère / sœur';
+  const ALL_FAM=[...COUPLE_TYPES,PARENT_TYPE,GRAND_TYPE,SIBLING_TYPE,'Cousin(e)','Oncle · tante / neveu · nièce'];
+
+  let arbreMotif='fleur', arbreBranches=true;
+  let famRels=S.relations.filter(r=>ALL_FAM.includes(r.type));
+  if(arbreCurrentId&&arbreCurrentId!=='__all__'){
+    const arb=(S.arbres||[]).find(a=>a.id===arbreCurrentId);
+    if(arb){const set=new Set(arb.relIds||[]);famRels=famRels.filter(r=>set.has(r.id));arbreMotif=arb.motif||'fleur';arbreBranches=(arb.branches!==false);}
+  }
+  if(!famRels.length){
+    svg.innerHTML='';emptyEl.style.display='block';
+    emptyEl.innerHTML=(arbreCurrentId&&arbreCurrentId!=='__all__')
+      ?'<div class="empty-icon">🌳</div>Cet arbre est vide — clique sur « ✎ Modifier » pour y ajouter des relations.'
+      :'<div class="empty-icon">🌳</div>Ajoute des relations familiales pour voir l\'arbre';
+    return;
+  }
+  emptyEl.style.display='none';
+
+  // Collect all nodes involved
+  const nodeIds=new Set();
+  famRels.forEach(r=>{nodeIds.add(r.a);nodeIds.add(r.b);});
+  const nodes=S.personnages.filter(p=>nodeIds.has(p.id));
+
+  // ============================================================
+  // STEP 1: Assign generations using DIRECTED parent->child edges
+  // r.a = parent, r.b = child for PARENT_TYPE
+  // ============================================================
+  const genMap={};
+  nodes.forEach(p=>genMap[p.id]=0);
+
+  const parentEdges=famRels.filter(r=>r.type===PARENT_TYPE||r.type===GRAND_TYPE);
+
+  // Topological propagation: parents get lower gen than children
+  // First find roots (nodes with no parents)
+  const hasParent=new Set();
+  parentEdges.forEach(r=>hasParent.add(r.b));
+  const roots=nodes.filter(p=>!hasParent.has(p.id));
+
+  // BFS from roots
+  const queue=[...roots.map(p=>({id:p.id,gen:0}))];
+  const visited=new Set();
+  while(queue.length){
+    const {id,gen}=queue.shift();
+    if(genMap[id]<gen) genMap[id]=gen;
+    parentEdges.filter(r=>r.a===id).forEach(r=>{
+      const childGen=gen+(r.type===GRAND_TYPE?2:1);
+      if(!visited.has(r.b+'_'+childGen)){
+        visited.add(r.b+'_'+childGen);
+        queue.push({id:r.b,gen:childGen});
+      }
+    });
+  }
+  // Extra passes to handle cycles/stragglers
+  for(let i=0;i<10;i++){
+    parentEdges.forEach(r=>{
+      const diff=r.type===GRAND_TYPE?2:1;
+      if(genMap[r.b]<genMap[r.a]+diff) genMap[r.b]=genMap[r.a]+diff;
+    });
+  }
+
+  // Normalize so min = 0
+  const minG=Math.min(...nodes.map(p=>genMap[p.id]));
+  nodes.forEach(p=>genMap[p.id]-=minG);
+  const maxG=Math.max(...nodes.map(p=>genMap[p.id]));
+
+  // ============================================================
+  // STEP 2: Build couple units
+  // ============================================================
+  const coupleRels=famRels.filter(r=>COUPLE_TYPES.includes(r.type));
+  const inCouple={};
+  const couples=[];
+  coupleRels.forEach(r=>{
+    if(!inCouple[r.a]&&!inCouple[r.b]){
+      const cid='C'+couples.length;
+      couples.push({id:cid,a:r.a,b:r.b,gen:Math.min(genMap[r.a],genMap[r.b])});
+      inCouple[r.a]=cid; inCouple[r.b]=cid;
+    }
+  });
+
+  // ============================================================
+  // STEP 3: Group siblings together per generation
+  // ============================================================
+  const sibRels=famRels.filter(r=>r.type===SIBLING_TYPE);
+  const sibGroup={};
+  const sibClusters=[];
+  sibRels.forEach(r=>{
+    const ga=sibGroup[r.a],gb=sibGroup[r.b];
+    if(ga==null&&gb==null){const i=sibClusters.length;sibClusters.push(new Set([r.a,r.b]));sibGroup[r.a]=i;sibGroup[r.b]=i;}
+    else if(ga!=null&&gb==null){sibClusters[ga].add(r.b);sibGroup[r.b]=ga;}
+    else if(ga==null&&gb!=null){sibClusters[gb].add(r.a);sibGroup[r.a]=gb;}
+    else if(ga!==gb){sibClusters[ga].forEach(id=>{sibClusters[gb].add(id);sibGroup[id]=gb;});sibClusters[ga]=new Set();}
+  });
+
+  // Order nodes per generation, keeping siblings adjacent
+  const genLists={};
+  nodes.forEach(p=>{const g=genMap[p.id];if(!genLists[g])genLists[g]=[];});
+  const genKeys=Object.keys(genLists).map(Number).sort((a,b)=>a-b);
+  genKeys.forEach(g=>genLists[g]=[]);
+
+  const placed=new Set();
+  // Place sibling clusters first
+  sibClusters.forEach(cluster=>{
+    if(!cluster.size)return;
+    const ids=[...cluster];
+    const g=genMap[ids[0]];
+    ids.forEach(id=>{if(!placed.has(id)){genLists[g].push(id);placed.add(id);}});
+  });
+  nodes.forEach(p=>{if(!placed.has(p.id)){genLists[genMap[p.id]].push(p.id);placed.add(p.id);}});
+
+  // ============================================================
+  // STEP 4: Compute x positions bottom-up then top-down
+  // ============================================================
+  const NW=130, NH=88, HGAP=42, VGAP=152, TOP=140;
+  const CIRCLE_R=30;
+
+  const nodeCX={}, nodeCY={};
+  genKeys.forEach(g=>{ genLists[g].forEach((id,i)=>{ nodeCY[id]=g*VGAP+TOP; }); });
+
+  // Initial x: spread evenly per generation
+  function layoutGen(g){
+    const ids=genLists[g]; if(!ids.length)return;
+    const totalW=ids.length*NW+(ids.length-1)*HGAP;
+    ids.forEach((id,i)=>{ nodeCX[id]=i*(NW+HGAP)+NW/2; });
+  }
+  genKeys.forEach(g=>layoutGen(g));
+
+  // Find all parent units and their children
+  const parentOf={}; // parentKey (coupleId or nodeId) -> [childId]
+  parentEdges.filter(r=>r.type===PARENT_TYPE).forEach(r=>{
+    const pKey=inCouple[r.a]||r.a;
+    if(!parentOf[pKey])parentOf[pKey]=[];
+    if(!parentOf[pKey].includes(r.b))parentOf[pKey].push(r.b);
+  });
+
+  // Top-down: center children under parents
+  function getParentCX(pKey){
+    const c=couples.find(cp=>cp.id===pKey);
+    if(c)return (nodeCX[c.a]+nodeCX[c.b])/2;
+    return nodeCX[pKey];
+  }
+
+  for(let pass=0;pass<6;pass++){
+    // Top-down: push children under parents
+    genKeys.forEach(g=>{
+      genLists[g].forEach(id=>{
+        const pKey=inCouple[id]||id;
+        const children=(parentOf[pKey]||[]).filter(cid=>nodeCX[cid]!=null);
+        if(!children.length)return;
+        const parentCX=getParentCX(pKey);
+        const minCX=Math.min(...children.map(cid=>nodeCX[cid]));
+        const maxCX=Math.max(...children.map(cid=>nodeCX[cid]));
+        const childMid=(minCX+maxCX)/2;
+        const dx=parentCX-childMid;
+        children.forEach(cid=>nodeCX[cid]+=dx);
+      });
+    });
+
+    // Bottom-up: center parents over children
+    [...genKeys].reverse().forEach(g=>{
+      Object.entries(parentOf).forEach(([pKey,children])=>{
+        const validC=children.filter(cid=>nodeCX[cid]!=null&&genMap[cid]===g);
+        if(!validC.length)return;
+        const midCX=(Math.min(...validC.map(cid=>nodeCX[cid]))+Math.max(...validC.map(cid=>nodeCX[cid])))/2;
+        const c=couples.find(cp=>cp.id===pKey);
+        if(c&&genMap[c.a]===g-1){
+          const w=(nodeCX[c.b]-nodeCX[c.a]);
+          const curMid=(nodeCX[c.a]+nodeCX[c.b])/2;
+          const dx=midCX-curMid;
+          nodeCX[c.a]+=dx; nodeCX[c.b]+=dx;
+        } else if(!c&&nodeCX[pKey]!=null&&genMap[pKey]===g-1){
+          nodeCX[pKey]=midCX;
+        }
+      });
+    });
+
+    // Resolve overlaps per generation
+    genKeys.forEach(g=>{
+      const ids=genLists[g].slice().sort((a,b)=>nodeCX[a]-nodeCX[b]);
+      for(let i=1;i<ids.length;i++){
+        const minX=nodeCX[ids[i-1]]+NW+HGAP;
+        if(nodeCX[ids[i]]<minX) nodeCX[ids[i]]=minX;
+      }
+    });
+  }
+
+  // Normalize: shift everything so min x = 150 (marge pour les fleurs décoratives)
+  const allCX=Object.values(nodeCX);
+  const shiftX=150-Math.min(...allCX)+NW/2;
+  Object.keys(nodeCX).forEach(id=>nodeCX[id]+=shiftX);
+
+  const svgW=Math.max(580, Math.max(...Object.values(nodeCX))+NW/2+150);
+  const svgH=maxG*VGAP+TOP+NH/2+90;
+
+  // ============================================================
+  // STEP 5: Draw
+  // ============================================================
+  const C_COUPLE='#5b8dd9';
+  const C_PARENT='#6f93d8';
+
+  // -- helpers décoratifs (fleurs / feuilles / branches enluminées) --
+  // Couleur d'accent décorative = couleur de personnage dominante de l'arbre (harmonise motifs + branches avec le fond)
+  const _colorCount={};
+  nodes.forEach(p=>{const cn=p.color||'purple';_colorCount[cn]=(_colorCount[cn]||0)+1;});
+  let accentName='purple',_accBest=0;
+  Object.entries(_colorCount).forEach(([cn,n])=>{if(n>_accBest){_accBest=n;accentName=cn;}});
+  const accentHex=AV_HEX[accentName]||'#7aa3e8';
+  const accLeaf=mixCol(accentHex,'#0a1428',0.5), accStroke=mixCol(accentHex,'#0a1428',0.4), accDot=mixCol(accentHex,'#ffffff',0.12);
+
+  const motif=(cx,cy,s,color)=>motifSvg(arbreMotif,cx,cy,s,color||accentHex);
+  const leaf=(cx,cy,len,ang)=>`<ellipse cx="${cx}" cy="${cy}" rx="${(len*0.34).toFixed(1)}" ry="${len}" transform="rotate(${ang} ${cx} ${cy})" fill="${accLeaf}" stroke="${accStroke}" stroke-width="0.5" opacity="0.85"/>`;
+  const BRANCH=`<path d="M0,0 Q42,28 62,76 T112,124" fill="none" stroke="${accStroke}" stroke-width="2" opacity="0.55" stroke-linecap="round"/><path d="M0,0 Q52,14 98,34" fill="none" stroke="${accStroke}" stroke-width="1.4" opacity="0.45" stroke-linecap="round"/>${leaf(30,30,11,42)}${leaf(74,54,12,-26)}${leaf(50,92,10,14)}${leaf(98,20,9,60)}<circle cx="24" cy="42" r="2.8" fill="${accDot}" opacity="0.8"/><circle cx="82" cy="80" r="2.4" fill="${accDot}" opacity="0.8"/>${motif(12,14,8)}${motif(60,42,10)}${motif(100,32,7)}${motif(48,84,9)}${motif(112,120,8)}`;
+  const corners=arbreBranches?`<g opacity="0.92">${BRANCH}</g><g opacity="0.92" transform="translate(${svgW},0) scale(-1,1)">${BRANCH}</g><g opacity="0.92" transform="translate(0,${svgH}) scale(1,-1)">${BRANCH}</g><g opacity="0.92" transform="translate(${svgW},${svgH}) scale(-1,-1)">${BRANCH}</g>`:'';
+
+  // -- titre « Famille X » (nom de famille le plus fréquent) --
+  const surCount={};
+  nodes.forEach(p=>{const pp=p.nom.trim().split(/\s+/);if(pp.length>1){const s=pp[pp.length-1];surCount[s]=(surCount[s]||0)+1;}});
+  let surname='',best=1;
+  Object.entries(surCount).forEach(([s,n])=>{if(n>best){best=n;surname=s;}});
+  const titleTxt=surname?`Famille ${surname}`:'Arbre généalogique';
+  const titre=`<text x="${svgW/2}" y="58" text-anchor="middle" font-family="Cinzel,serif" font-size="26" fill="#d6e4ff" letter-spacing="2" filter="url(#titleGlow)">${titleTxt}</text><g transform="translate(${svgW/2},82)"><line x1="-94" y1="0" x2="-14" y2="0" stroke="${accStroke}" stroke-width="1" opacity="0.7"/><line x1="14" y1="0" x2="94" y2="0" stroke="${accStroke}" stroke-width="1" opacity="0.7"/>${motif(0,0,6)}</g>`;
+
+  let linesHTML='', nodesHTML='';
+
+  // Couleur de carte par personnage — sert à colorer chaque trait selon les personnes reliées
+  const pColorOf={};
+  nodes.forEach(p=>{pColorOf[p.id]=AV_HEX[p.color||'purple']||C_COUPLE;});
+
+  // Couple — demi-ligne de la couleur de chaque conjoint, cœur teinté du mélange des deux
+  couples.forEach(c=>{
+    const ax=nodeCX[c.a],ay=nodeCY[c.a];
+    const bx=nodeCX[c.b];
+    if(ax==null||bx==null)return;
+    const mx=(ax+bx)/2, my=ay;
+    const lx=Math.min(ax,bx)+NW/2, rx=Math.max(ax,bx)-NW/2;
+    const leftId=ax<=bx?c.a:c.b, rightId=ax<=bx?c.b:c.a;
+    const lCol=pColorOf[leftId]||C_COUPLE, rCol=pColorOf[rightId]||C_COUPLE;
+    linesHTML+=`
+      <line x1="${lx}" y1="${my}" x2="${mx-12}" y2="${my}" stroke="${lCol}" stroke-width="1.6" opacity="0.85"/>
+      <line x1="${mx+12}" y1="${my}" x2="${rx}" y2="${my}" stroke="${rCol}" stroke-width="1.6" opacity="0.85"/>
+      <circle cx="${mx}" cy="${my}" r="11" fill="#101a38" stroke="${mixCol(lCol,rCol,0.5)}" stroke-width="1.3"/>
+      <text x="${mx}" y="${my+5}" text-anchor="middle" font-size="14" fill="#e88aa2">♥</text>`;
+  });
+
+  // Parent -> children
+  Object.entries(parentOf).forEach(([pKey,children])=>{
+    const validC=children.filter(id=>nodeCX[id]!=null);
+    if(!validC.length)return;
+
+    let pCX;
+    const c=couples.find(cp=>cp.id===pKey);
+    if(c){ pCX=(nodeCX[c.a]+nodeCX[c.b])/2; }
+    else { pCX=nodeCX[pKey]; if(pCX==null)return; }
+
+    const pId=c?c.a:pKey;
+    const pBottomY=nodeCY[pId]+NH/2;
+    const cTopY=nodeCY[validC[0]]-NH/2;
+    const midY=(pBottomY+cTopY)/2;
+
+    // Couleur du parent (mélange des deux parents si couple), puis chaque descente = couleur de l'enfant
+    const parentColor=c?mixCol(pColorOf[c.a]||C_PARENT,pColorOf[c.b]||C_PARENT,0.5):(pColorOf[pKey]||C_PARENT);
+
+    linesHTML+=`<path d="M${pCX},${pBottomY} L${pCX},${midY}" stroke="${parentColor}" stroke-width="1.6" opacity="0.8" fill="none"/>`;
+    if(validC.length>1){
+      const minCX=Math.min(...validC.map(id=>nodeCX[id]));
+      const maxCX=Math.max(...validC.map(id=>nodeCX[id]));
+      linesHTML+=`<path d="M${minCX},${midY} L${maxCX},${midY}" stroke="${parentColor}" stroke-width="1.6" opacity="0.7" fill="none"/>`;
+    }
+    validC.forEach(id=>{
+      const cxv=nodeCX[id], topv=nodeCY[id]-NH/2;
+      const cCol=pColorOf[id]||parentColor;
+      linesHTML+=`<path d="M${cxv},${midY} L${cxv},${topv}" stroke="${cCol}" stroke-width="1.6" opacity="0.8" fill="none"/><circle cx="${cxv}" cy="${topv}" r="2.6" fill="${cCol}"/>`;
+    });
+  });
+
+  // Nœuds (cartes)
+  nodes.forEach(p=>{
+    const cx=nodeCX[p.id],cy=nodeCY[p.id];
+    if(cx==null)return;
+    const x=cx-NW/2, y=cy-NH/2;
+    const sel=(arbreSelectedId===p.id);
+    const parts=p.nom.split(' ');
+    const firstName=parts[0]||'';
+    const lastName=parts.slice(1).join(' ');
+    const shortFirst=firstName.length>13?firstName.slice(0,11)+'…':firstName;
+    const shortLast=lastName.length>15?lastName.slice(0,13)+'…':lastName;
+
+    const pHex=AV_HEX[p.color||'purple']||C_COUPLE;
+    const pSel=mixCol(pHex,'#ffffff',0.55);
+    nodesHTML+=`
+    <g id="arbre-node-${p.id}" transform="translate(${x},${y})" style="cursor:pointer" onclick="selectArbreNode('${p.id}')" class="arbre-node${sel?' sel':''}">
+      <rect width="${NW}" height="${NH}" rx="14" fill="#0c1430" stroke="${sel?pSel:pHex}" stroke-width="${sel?2.2:1.5}" filter="url(#${sel?'nodeGlow':'nodeShadow'})"/>
+      <rect x="1.5" y="1.5" width="${NW-3}" height="${NH-3}" rx="12.5" fill="url(#nodeGrad-${p.color||'purple'})" opacity="0.7"/>
+      <circle cx="${NW/2}" cy="26" r="16" fill="#142042" stroke="${pHex}" stroke-width="1.3" opacity="0.95"/>
+      ${motif(NW/2,26,7,pHex)}
+      <text x="${NW/2}" y="${NH-26}" text-anchor="middle" font-size="13" fill="#d2e2ff" font-family="Cinzel,serif">${shortFirst}</text>
+      ${shortLast?`<text x="${NW/2}" y="${NH-10}" text-anchor="middle" font-size="10" fill="#7595d4" font-family="Inter,sans-serif" letter-spacing="0.5">${shortLast}</text>`:''}
+    </g>`;
+  });
+
+  const nodeColors=[...new Set(nodes.map(p=>p.color||'purple'))];
+  // Un dégradé de carte par couleur de personnage présente dans l'arbre
+  const nodeGradDefs=nodeColors.map(cn=>{const hex=AV_HEX[cn]||C_COUPLE;return `<linearGradient id="nodeGrad-${cn}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${hex}" stop-opacity="0.4"/><stop offset="100%" stop-color="#0a1530" stop-opacity="0.05"/></linearGradient>`;}).join('');
+  const bgGradDef=arbreBgGradient(nodeColors);
+  const defs=`<defs>
+    <filter id="nodeShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000820" flood-opacity="0.7"/></filter>
+    <filter id="nodeGlow" x="-70%" y="-70%" width="240%" height="240%"><feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#5b8dd9" flood-opacity="0.95"/></filter>
+    <filter id="titleGlow" x="-30%" y="-100%" width="160%" height="300%"><feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#3a6ad0" flood-opacity="0.6"/></filter>
+    ${nodeGradDefs}
+    <radialGradient id="petalGrad" cx="50%" cy="32%" r="68%"><stop offset="0%" stop-color="#a6c8ff"/><stop offset="100%" stop-color="#4a6fc0"/></radialGradient>
+    <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4f78c8"/><stop offset="100%" stop-color="#2c4a92"/></linearGradient>
+    ${bgGradDef}
+    <radialGradient id="vignette" cx="50%" cy="42%" r="78%"><stop offset="52%" stop-color="#02060f" stop-opacity="0"/><stop offset="100%" stop-color="#02060f" stop-opacity="0.6"/></radialGradient>
+    <style>
+      .arbre-node rect { transition: stroke 0.2s, stroke-width 0.2s; }
+      .arbre-node { transition: filter 0.2s; }
+      .arbre-node:hover { filter: brightness(1.22); }
+    </style>
+  </defs>`;
+
+  // Fond + cadre + décor floral : couche FIXE (ne suit pas le zoom/déplacement)
+  const bg=`<rect width="${svgW}" height="${svgH}" fill="url(#bgGrad)"/><rect width="${svgW}" height="${svgH}" fill="url(#vignette)"/>`;
+  const frame=`
+    <rect x="14" y="14" width="${svgW-28}" height="${svgH-28}" rx="13" fill="none" stroke="#274686" stroke-width="1" opacity="0.55"/>
+    <rect x="20" y="20" width="${svgW-40}" height="${svgH-40}" rx="10" fill="none" stroke="#1a3068" stroke-width="0.5" opacity="0.4"/>`;
+  const staticLayer=`${bg}${frame}${corners}${titre}`;
+
+  // Couche transformable : seules les cartes + lignes bougent au zoom/déplacement
+  svg.innerHTML=`${defs}${staticLayer}<g id="arbre-g" transform="translate(${arbrePanX},${arbrePanY}) scale(${arbreZoom})">${linesHTML}${nodesHTML}</g>`;
+  svg.setAttribute('viewBox',`0 0 ${svgW} ${svgH}`);
+  svg.style.width='100%'; svg.style.height='100%';
+  arbreViewW=svgW; arbreViewH=svgH;
+  if(arbreSelectedId) requestAnimationFrame(()=>positionArbreDetail(arbreSelectedId));
+}
+
+// --- Fiche déroulante au clic sur un nœud (menu du haut vers le bas) ---
+function selectArbreNode(id){
+  if(arbreSelectedId===id){ closeArbreDetail(); return; }
+  arbreSelectedId=id;
+  renderArbre();          // re-dessine pour surligner le nœud sélectionné
+  openArbreDetail(id);
+}
+function openArbreDetail(id){
+  const p=S.personnages.find(x=>x.id===id); if(!p)return;
+  const canvasEl=document.getElementById('arbre-canvas');
+  let panel=document.getElementById('arbre-detail');
+  if(!panel){ panel=document.createElement('div'); panel.id='arbre-detail'; panel.className='arbre-detail'; canvasEl.appendChild(panel); }
+  panel.classList.remove('open');
+  panel.innerHTML=arbreFicheHTML(p);
+  canvasEl.style.overflow='visible';   // laisse la fiche déborder sous la carte
+  positionArbreDetail(id);
+  void panel.offsetHeight;             // force un reflow pour (re)jouer l'animation
+  panel.classList.add('open');
+}
+function positionArbreDetail(id){
+  const panel=document.getElementById('arbre-detail'); if(!panel)return;
+  const node=document.getElementById('arbre-node-'+id);
+  const canvasEl=document.getElementById('arbre-canvas');
+  if(!node||!canvasEl)return;
+  const nr=node.getBoundingClientRect(), cr=canvasEl.getBoundingClientRect();
+  const w=300;
+  let left=(nr.left-cr.left)+nr.width/2-w/2;
+  left=Math.max(6,Math.min(left,canvasEl.clientWidth-w-6));
+  panel.style.left=left+'px';
+  panel.style.top=((nr.bottom-cr.top)+8)+'px';
+}
+function closeArbreDetail(){
+  const panel=document.getElementById('arbre-detail');
+  const wasSel=arbreSelectedId;
+  arbreSelectedId=null;
+  if(panel) panel.classList.remove('open');
+  const canvasEl=document.getElementById('arbre-canvas'); if(canvasEl) canvasEl.style.overflow='hidden';
+  if(wasSel) renderArbre();
+}
+function arbreFicheHTML(p){
+  const init=p.nom.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  const meta=[p.role,p.espece,p.age,p.sexe].filter(Boolean).join(' · ');
+  const secs=[['Apparence',p.apparence],['Personnalité',p.personnalite],['Histoire & passé',p.passe],['Motivations & objectifs',p.motiv],['Pouvoirs & compétences',p.pouvoirs],['Arc narratif',p.arc]];
+  const filled=secs.filter(([l,v])=>v&&v.trim());
+  const body=filled.map(([l,v],i)=>`<div class="ad-section${i===0?' first':''}"><div class="ad-label">${l}</div><div class="ad-text">${esc(v)}</div></div>`).join('');
+  return `<button class="ad-close" onclick="closeArbreDetail()">✕</button>
+    <div class="arbre-detail-inner">
+      <div class="ad-head">
+        <div class="ad-emblem">${init}</div>
+        <div><div class="ad-name">${esc(p.nom)}${p.alias?`<span class="ad-alias">${esc(p.alias)}</span>`:''}</div>${meta?`<div class="ad-meta">${esc(meta)}</div>`:''}</div>
+      </div>
+      ${body||'<div class="ad-text first" style="color:#5d7cb6">Aucun détail renseigné pour ce personnage.</div>'}
+      <div class="ad-footer"><button class="btn ad-btn" onclick="openModal('perso','${p.id}')">✎ Éditer la fiche complète</button></div>
+    </div>`;
+}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+// --- Zoom / déplacement ---
+function applyArbreTransform(){
+  const g=document.getElementById('arbre-g');
+  if(g)g.setAttribute('transform',`translate(${arbrePanX},${arbrePanY}) scale(${arbreZoom})`);
+  if(arbreSelectedId)positionArbreDetail(arbreSelectedId);
+}
+function arbreZoomIn(){arbreZoom=Math.min(arbreZoom+0.15,3);applyArbreTransform();}
+function arbreZoomOut(){arbreZoom=Math.max(arbreZoom-0.15,0.3);applyArbreTransform();}
+function arbreReset(){arbreZoom=1;arbrePanX=0;arbrePanY=0;applyArbreTransform();}
+
+// --- Interactions canvas (molette + glisser pour déplacer) ---
+(function initArbreCanvas(){
+  const cv=document.getElementById('arbre-canvas'); if(!cv)return;
+  cv.addEventListener('wheel',e=>{e.preventDefault();const f=e.deltaY<0?1.08:0.926;arbreZoom=Math.min(Math.max(arbreZoom*f,0.3),3);applyArbreTransform();},{passive:false});
+  cv.addEventListener('mousedown',e=>{
+    if(e.target.closest('.arbre-node')||e.target.closest('#arbre-detail'))return;
+    arbreDragging=true;arbreLastX=e.clientX;arbreLastY=e.clientY;cv.style.cursor='grabbing';
+  });
+  window.addEventListener('mousemove',e=>{
+    if(!arbreDragging)return;
+    const k=Math.min(cv.clientWidth/(arbreViewW||1),cv.clientHeight/(arbreViewH||1))||1;
+    arbrePanX+=(e.clientX-arbreLastX)/k;
+    arbrePanY+=(e.clientY-arbreLastY)/k;
+    arbreLastX=e.clientX;arbreLastY=e.clientY;
+    applyArbreTransform();
+  });
+  window.addEventListener('mouseup',()=>{ if(arbreDragging){arbreDragging=false;cv.style.cursor='grab';} });
+})();
+
+// --- Arbres sauvegardés (sélection / création / édition) ---
+function ensureArbres(){ if(!Array.isArray(S.arbres)) S.arbres=[]; }
+function renderArbreSelect(){
+  ensureArbres();
+  const sel=document.getElementById('arbre-select'); if(!sel)return;
+  if(arbreCurrentId!=='__all__' && !S.arbres.some(a=>a.id===arbreCurrentId)) arbreCurrentId='__all__';
+  sel.innerHTML='<option value="__all__">🌳 Tout afficher</option>'+S.arbres.map(a=>`<option value="${a.id}">${esc(a.nom)}</option>`).join('');
+  sel.value=arbreCurrentId;
+  const custom=arbreCurrentId!=='__all__';
+  const eb=document.getElementById('arbre-edit-btn'), db=document.getElementById('arbre-del-btn');
+  if(eb)eb.style.display=custom?'':'none';
+  if(db)db.style.display=custom?'':'none';
+}
+function selectArbre(val){ arbreCurrentId=val; S.arbreCurrentId=val; save(); closeArbreDetail(); renderArbre(); }
+function openArbreModal(id){
+  ensureArbres();
+  document.getElementById('arbre-edit-id').value='';
+  document.getElementById('arbre-nom').value='';
+  document.getElementById('arbre-modal-title').textContent='Nouvel arbre';
+  const motifSel=document.getElementById('arbre-motif');
+  if(motifSel) motifSel.innerHTML=ARBRE_MOTIFS.map(m=>`<option value="${m.id}">${m.label}</option>`).join('');
+  let motifVal='fleur', branchesVal=true;
+  let checked=null;
+  if(id){const a=S.arbres.find(x=>x.id===id);if(a){document.getElementById('arbre-edit-id').value=id;document.getElementById('arbre-nom').value=a.nom||'';document.getElementById('arbre-modal-title').textContent='Modifier l’arbre';checked=new Set(a.relIds||[]);motifVal=a.motif||'fleur';branchesVal=(a.branches!==false);}}
+  if(motifSel) motifSel.value=motifVal;
+  const brCb=document.getElementById('arbre-branches'); if(brCb) brCb.checked=branchesVal;
+  buildArbreChooser(checked);
+  document.getElementById('modal-arbre').classList.add('open');
+}
+function buildArbreChooser(checkedSet){
+  const box=document.getElementById('arbre-rel-choose');
+  const fam=S.relations.filter(r=>ARBRE_FAM_TYPES.includes(r.type));
+  if(!fam.length){box.innerHTML='<div class="arbre-rel-empty">Aucune relation familiale. Crée d’abord des liens (Parent / enfant, Époux / épouse…) dans l’onglet Relations.</div>';return;}
+  box.innerHTML=fam.map(r=>{
+    const pA=S.personnages.find(p=>p.id===r.a), pB=S.personnages.find(p=>p.id===r.b);
+    if(!pA||!pB)return'';
+    const on=checkedSet?checkedSet.has(r.id):true; // nouvel arbre : tout coché par défaut
+    return `<label class="arbre-rel-row"><input type="checkbox" value="${r.id}" ${on?'checked':''}><span><strong>${esc(pA.nom)}</strong> <span style="color:var(--text3)">⟷</span> <strong>${esc(pB.nom)}</strong> <span style="color:var(--text3);font-size:11px">· ${esc(r.type)}</span></span></label>`;
+  }).join('');
+}
+function arbreCheckAll(v){document.querySelectorAll('#arbre-rel-choose input[type=checkbox]').forEach(c=>c.checked=v);}
+function saveArbre(){
+  ensureArbres();
+  const nom=document.getElementById('arbre-nom').value.trim(); if(!nom)return;
+  const editId=document.getElementById('arbre-edit-id').value;
+  const relIds=[...document.querySelectorAll('#arbre-rel-choose input:checked')].map(c=>c.value);
+  const motif=(document.getElementById('arbre-motif')||{}).value||'fleur';
+  const branches=!!(document.getElementById('arbre-branches')||{}).checked;
+  if(editId){const i=S.arbres.findIndex(a=>a.id===editId);if(i>=0)S.arbres[i]={...S.arbres[i],nom,relIds,motif,branches};arbreCurrentId=editId;}
+  else{const id=uid();S.arbres.push({id,nom,relIds,motif,branches});arbreCurrentId=id;}
+  S.arbreCurrentId=arbreCurrentId;
+  save(); closeModal('arbre'); renderArbre();
+}
+function delArbre(id){
+  ensureArbres();
+  if(!id||id==='__all__')return;
+  const a=S.arbres.find(x=>x.id===id);
+  if(!confirm('Supprimer l’arbre « '+(a?a.nom:'')+' » ?\n(les personnages et relations ne sont pas supprimés)'))return;
+  S.arbres=S.arbres.filter(x=>x.id!==id);
+  arbreCurrentId='__all__';
+  S.arbreCurrentId='__all__';
+  save(); renderArbre();
+}
+
+// LIEUX
+function saveLieu(){const nom=document.getElementById('l-nom').value.trim();if(!nom)return;const editId=document.getElementById('l-edit-id').value;const l={id:editId||uid(),nom,type:document.getElementById('l-type').value,desc:document.getElementById('l-desc').value,hist:document.getElementById('l-hist').value,hab:document.getElementById('l-hab').value,magie:document.getElementById('l-magie').value,fichiers:modalFiles.lieu};if(editId){const i=S.lieux.findIndex(x=>x.id===editId);if(i>=0)S.lieux[i]=l;}else S.lieux.push(l);save();closeModal('lieu');renderLieux();updateStats();}
+function delLieu(id){S.lieux=S.lieux.filter(x=>x.id!==id);save();renderLieux();updateStats();}
+function renderLieux(){
+  const el=document.getElementById('lieu-list');
+  if(!S.lieux.length){el.className='';el.innerHTML='<div class="empty"><div class="empty-icon">◎</div>Aucun lieu défini</div>';return;}
+  el.className='grid-auto';
+  el.innerHTML=S.lieux.map(l=>`<div class="world-card"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="world-name">◎ ${l.nom}</div>${l.type?`<div class="world-type">${l.type}</div>`:''}</div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal('lieu','${l.id}')">✎</button><button class="btn btn-danger btn-sm" onclick="delLieu('${l.id}')">✕</button></div></div>${l.desc?`<div class="world-desc" style="margin-top:8px">${l.desc.slice(0,110)}${l.desc.length>110?'…':''}</div>`:''}${l.magie?`<div style="margin-top:7px"><span class="tag tag-purple" style="font-size:11px">✦ ${l.magie.slice(0,55)}${l.magie.length>55?'…':''}</span></div>`:''}${fileBadge(l)}</div>`).join('');
+}
+
+// FACTIONS
+function saveFaction(){const nom=document.getElementById('f-nom').value.trim();if(!nom)return;const editId=document.getElementById('f-edit-id').value;const parent=document.getElementById('f-parent').value||'';const f={id:editId||uid(),nom,parent,type:document.getElementById('f-type').value,ideo:document.getElementById('f-ideo').value,relations:document.getElementById('f-relations').value,symbole:document.getElementById('f-symbole').value,role:document.getElementById('f-role').value,fichiers:modalFiles.faction};if(editId){const i=S.factions.findIndex(x=>x.id===editId);if(i>=0)S.factions[i]=f;}else S.factions.push(f);if(parent)factionExpanded.add(parent);save();closeModal('faction');renderFactions();updateStats();}
+function delFaction(id){S.factions=S.factions.filter(x=>x.id!==id);save();renderFactions();updateStats();}
+let factionExpanded=new Set();
+function renderFactions(){
+  const el=document.getElementById('faction-list');
+  if(!S.factions.length){el.className='';el.innerHTML='<div class="empty"><div class="empty-icon">⚔</div>Aucune faction définie</div>';return;}
+  // racines = factions sans parent (ou dont le parent a été supprimé)
+  const roots=S.factions.filter(f=>!f.parent||!S.factions.some(x=>x.id===f.parent));
+  el.className='grid-auto';
+  el.innerHTML=roots.map(f=>factionCardHTML(f,0)).join('');
+}
+function factionCardHTML(f,depth){
+  const subs=S.factions.filter(x=>x.parent===f.id);
+  const exp=factionExpanded.has(f.id);
+  const root=depth===0;
+  const cls=(root?'world-card faction-card':'subfaction-card faction-card')+(exp?' exp':'');
+  const icon=root?'⚔':'❖';
+  const tag=root?'tag-amber':'tag-coral';
+  const badge=root?'':'<span class="sf-badge">sous-faction</span>';
+  let zone='';
+  if(exp){
+    zone=`<div class="subfaction-zone">
+      <button class="btn btn-subfaction" onclick="newSousFaction('${f.id}',event)">+ Sous-faction</button>
+      ${subs.map(s=>factionCardHTML(s,depth+1)).join('')}
+      ${!subs.length?'<div style="font-size:11px;color:var(--text3);margin-top:10px">Aucune sous-faction pour l’instant — clique sur « + Sous-faction ».</div>':''}
+    </div>`;
+  }
+  return `<div class="${cls}" onclick="toggleFaction('${f.id}',event)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div><div class="world-name">${icon} ${f.nom}${badge} <span class="faction-chevron">▶</span></div>${f.type?`<div class="world-type">${f.type}</div>`:''}</div>
+      <div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal('faction','${f.id}');event.stopPropagation()">✎</button><button class="btn btn-danger btn-sm" onclick="delFaction('${f.id}');event.stopPropagation()">✕</button></div>
+    </div>
+    ${f.ideo?`<div class="world-desc" style="margin-top:8px">${f.ideo.slice(0,110)}${f.ideo.length>110?'…':''}</div>`:''}
+    ${f.symbole?`<div style="margin-top:7px"><span class="tag ${tag}" style="font-size:11px">${f.symbole}</span></div>`:''}
+    ${fileBadge(f)}
+    ${zone}
+  </div>`;
+}
+function toggleFaction(id,ev){
+  if(ev){ if(ev.target.closest('button'))return; ev.stopPropagation(); }
+  if(factionExpanded.has(id))factionExpanded.delete(id); else factionExpanded.add(id);
+  renderFactions();
+}
+function newSousFaction(id,ev){ if(ev)ev.stopPropagation(); factionExpanded.add(id); openModal('faction',null,id); }
+
+// CHAPITRES
+function saveChapitre(){const num=document.getElementById('c-num').value.trim(),titre=document.getElementById('c-titre').value.trim();if(!num&&!titre)return;const editId=document.getElementById('c-edit-id').value;const c={id:editId||uid(),num,titre,resume:document.getElementById('c-resume').value,pdv:document.getElementById('c-pdv').value,lieux:document.getElementById('c-lieux').value,statut:document.getElementById('c-statut').value,notes:document.getElementById('c-notes').value};if(editId){const i=S.chapitres.findIndex(x=>x.id===editId);if(i>=0)S.chapitres[i]=c;}else S.chapitres.push(c);save();closeModal('chapitre');renderChapitres();updateStats();renderAvancement();}
+function delChapitre(id){S.chapitres=S.chapitres.filter(x=>x.id!==id);save();renderChapitres();updateStats();renderAvancement();}
+function renderChapitres(){
+  const el=document.getElementById('chap-list');
+  if(!S.chapitres.length){el.innerHTML='<div class="empty"><div class="empty-icon">▤</div>Pas encore de chapitres</div>';return;}
+  const stL={idee:'Idée',brouillon:'Brouillon',redige:'Rédigé',final:'Final'};
+  el.innerHTML=S.chapitres.map((c,i)=>`<div class="chap-item"><div class="chap-num">${c.num||i+1}</div><div style="flex:1"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="chap-title">${c.titre||'Sans titre'}</span><span class="tag st-${c.statut}" style="font-size:11px">${stL[c.statut]}</span></div>${c.pdv||c.lieux?`<div class="chap-meta">${[c.pdv?'PDV: '+c.pdv:'',c.lieux?'Lieu: '+c.lieux:''].filter(Boolean).join(' · ')}</div>`:''}${c.resume?`<div class="chap-resume">${c.resume.slice(0,140)}${c.resume.length>140?'…':''}</div>`:''}</div><div style="display:flex;gap:3px"><button class="btn btn-ghost btn-sm" onclick="openModal('chapitre','${c.id}')">✎</button><button class="btn btn-danger btn-sm" onclick="delChapitre('${c.id}')">✕</button></div></div>`).join('');
+}
+
+// IDÉES
+function saveIdee(){const texte=document.getElementById('i-texte').value.trim();if(!texte)return;S.idees.push({id:uid(),cat:document.getElementById('i-cat').value,texte});save();closeModal('idee');renderIdees();updateStats();}
+function delIdee(id){S.idees=S.idees.filter(x=>x.id!==id);save();renderIdees();updateStats();}
+function renderIdees(){
+  const el=document.getElementById('idee-list');
+  if(!S.idees.length){el.innerHTML='<div class="empty"><div class="empty-icon">✦</div>Capture tes idées ici !</div>';return;}
+  el.innerHTML=S.idees.map(i=>`<div class="idee-item"><span class="tag ${CAT_TAG[i.cat]||'tag-blue'}" style="flex-shrink:0;font-size:11px">${CAT_LABEL[i.cat]||i.cat}</span><span class="idee-text">${i.texte}</span><button class="btn btn-danger btn-sm" onclick="delIdee('${i.id}')">✕</button></div>`).join('');
+}
+
+// STATS
+function updateStats(){
+  const m={perso:S.personnages.length,rel:S.relations.length,fac:S.factions.length,chap:S.chapitres.length,idee:S.idees.length,lieux:S.lieux.length};
+  Object.entries(m).forEach(([k,v])=>{const e=document.getElementById('nb-'+k);if(e)e.textContent=v;});
+  document.getElementById('ms-perso').textContent=m.perso;
+  document.getElementById('ms-chap').textContent=m.chap;
+  document.getElementById('ms-lieux').textContent=m.lieux;
+  document.getElementById('ms-idees').textContent=m.idee;
+  document.getElementById('nb-perso').textContent=m.perso;
+  document.getElementById('nb-rel').textContent=m.rel;
+  document.getElementById('nb-fac').textContent=m.fac;
+  document.getElementById('nb-chap').textContent=m.chap;
+  document.getElementById('nb-idee').textContent=m.idee;
+}
+
+function renderAvancement(){
+  const el=document.getElementById('avancement-content');
+  if(!S.chapitres.length){el.innerHTML='<div class="empty"><div class="empty-icon">▤</div>Pas encore de chapitres</div>';return;}
+  const total=S.chapitres.length;
+  const finals=S.chapitres.filter(c=>c.statut==='final').length;
+  const rediges=S.chapitres.filter(c=>c.statut==='redige').length;
+  const pct=Math.round((finals+rediges*0.6)/total*100);
+  const by={idee:0,brouillon:0,redige:0,final:0};
+  S.chapitres.forEach(c=>by[c.statut]=(by[c.statut]||0)+1);
+  el.innerHTML=`<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;color:var(--text2)"><span>Progression globale</span><span style="color:var(--c-accueil);font-weight:500">${pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:var(--c-accueil)"></div></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:13px">${[['idee','Idées','st-idee'],['brouillon','Brouillons','st-brouillon'],['redige','Rédigés','st-redige'],['final','Finals','st-final']].map(([s,l,t])=>`<span class="tag ${t}">${by[s]||0} ${l}</span>`).join('')}</div>`;
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');});});
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  const titre=(S.roman&&S.roman.titre?S.roman.titre.replace(/\s+/g,'_'):'grimoire');
+  a.download=titre+'_sauvegarde.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importData(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(typeof data!=='object'||Array.isArray(data))throw new Error();
+      S=data;
+      save();
+      renderAll();
+      alert('Données importées avec succès !');
+    }catch(err){alert('Fichier invalide. Assure-toi d\'utiliser un fichier exporté depuis ce dashboard.');}
+    e.target.value='';
+  };
+  reader.readAsText(file);
+}
+
+load();
+</script>
+
+
+</body></html>
