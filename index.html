@@ -17,7 +17,7 @@
 <meta name="apple-mobile-web-app-title" content="Grimoire">
 <meta name="application-name" content="Grimoire">
 <!-- ===== fin icones PWA ===== -->
-<script>try{var t=localStorage.getItem('grimoire_theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<script>try{var t=localStorage.getItem('grimoire_theme_v2');if(t){if(t!=='nuit')document.documentElement.setAttribute('data-theme',t);}else{var o=localStorage.getItem('grimoire_theme');if(o==='light')document.documentElement.setAttribute('data-theme','light');}}catch(e){}</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;500&display=swap');
 
@@ -67,11 +67,108 @@
   --c-idees: #9d56b0;      --c-idees-bg: rgba(184,124,200,0.15);
 }
 
+/* ===== Système de thèmes — fonds GitHub Pages + glassmorphism ===== */
+:root{ --bg-image:none; --glass-blur:0px; --glass-hi:transparent; }
+
+/* Accents (assombris) partagés par les thèmes clairs à image */
+:root[data-theme="aube"],
+:root[data-theme="brume"],
+:root[data-theme="jardin"],
+:root[data-theme="parchemin-clair"]{
+  --c-accueil:#5b46d6;    --c-accueil-bg:rgba(124,106,245,0.14);
+  --c-perso:#c95f37;      --c-perso-bg:rgba(224,123,84,0.15);
+  --c-relation:#2c9685;   --c-relation-bg:rgba(77,184,164,0.16);
+  --c-univers:#3a7fde;    --c-univers-bg:rgba(91,156,246,0.15);
+  --c-factions:#c0524a;   --c-factions-bg:rgba(212,115,106,0.15);
+  --c-histoire:#a8843a;   --c-histoire-bg:rgba(196,163,90,0.18);
+  --c-chap:#4f9d4f;       --c-chap-bg:rgba(124,184,124,0.16);
+  --c-idees:#9d56b0;      --c-idees-bg:rgba(184,124,200,0.15);
+}
+
+/* — Thèmes FONCÉS à image — */
+:root[data-theme="foret"]{
+  --bg:#0a120c; --bg2:rgba(18,34,24,0.60); --bg3:rgba(26,46,33,0.55); --bg4:rgba(36,60,44,0.72);
+  --border:rgba(120,220,150,0.14); --border2:rgba(120,220,150,0.26);
+  --text:#e9f5ec; --text2:#a6c6b2; --text3:#5f7d68;
+  --bg-image:url('https://lyly-art-tech.github.io/Grimoire/for%C3%AAt%20enchant%C3%A9e.png');
+  --glass-blur:14px; --glass-hi:rgba(150,240,180,0.16);
+}
+:root[data-theme="sang"]{
+  --bg:#140807; --bg2:rgba(40,17,15,0.60); --bg3:rgba(54,22,19,0.55); --bg4:rgba(70,28,24,0.72);
+  --border:rgba(240,120,100,0.15); --border2:rgba(240,120,100,0.28);
+  --text:#f7e9e6; --text2:#d0a89f; --text3:#8a5f58;
+  --bg-image:url('https://lyly-art-tech.github.io/Grimoire/Sang%20et%20feu.png');
+  --glass-blur:14px; --glass-hi:rgba(255,140,120,0.16);
+}
+:root[data-theme="ciel"]{
+  --bg:#080b18; --bg2:rgba(17,23,46,0.58); --bg3:rgba(24,32,58,0.54); --bg4:rgba(32,42,74,0.70);
+  --border:rgba(160,190,245,0.15); --border2:rgba(185,205,250,0.28);
+  --text:#eaf0fb; --text2:#aab8d8; --text3:#5f6d94;
+  --bg-image:url('https://lyly-art-tech.github.io/Grimoire/Ciel%20%C3%A9toil%C3%A9.png');
+  --glass-blur:14px; --glass-hi:rgba(200,215,255,0.18);
+}
+:root[data-theme="parchemin"]{
+  --bg:#171009; --bg2:rgba(46,33,18,0.60); --bg3:rgba(60,44,25,0.55); --bg4:rgba(76,56,33,0.72);
+  --border:rgba(220,180,110,0.16); --border2:rgba(220,180,110,0.30);
+  --text:#f4ead4; --text2:#cbb185; --text3:#8a7550;
+  --bg-image:url('https://lyly-art-tech.github.io/Grimoire/Parchemin%20ancien.png');
+  --glass-blur:12px; --glass-hi:rgba(240,205,140,0.16);
+}
+
+/* — Thèmes CLAIRS à image — */
+:root[data-theme="aube"]{
+  --bg:#fbf3e6; --bg2:rgba(255,250,240,0.72); --bg3:rgba(250,240,222,0.64); --bg4:rgba(244,230,204,0.82);
+  --border:rgba(180,140,60,0.20); --border2:rgba(180,140,60,0.32);
+  --text:#3a2c14; --text2:#7a6338; --text3:#a8905e;
+  --bg-image:url('https://lyly-art-tech.github.io/Grimoire/Aube%20dor%C3%A9e.png');
+  --glass-blur:12px; --glass-hi:rgba(255,240,200,0.55);
+}
+:root[data-theme="brume"]{
+  --bg:#eef1f5; --bg2:rgba(252,254,255,0.72); --bg3:rgba(238,243,248,0.64); --bg4:rgba(224,232,240,0.82);
+  --border:rgba(80,110,140,0.18); --border2:rgba(80,110,140,0.30);
+  --text:#22303c; --text2:#526270; --text3:#8a99a6;
+  --bg-image:url('https://lyly-art-tech.github.io/Grimoire/Brume%20matinale.png');
+  --glass-blur:12px; --glass-hi:rgba(235,245,255,0.55);
+}
+:root[data-theme="jardin"]{
+  --bg:#f6eef2; --bg2:rgba(255,250,252,0.72); --bg3:rgba(247,238,244,0.64); --bg4:rgba(239,227,236,0.82);
+  --border:rgba(200,110,150,0.18); --border2:rgba(180,150,120,0.30);
+  --text:#3a2530; --text2:#6d5460; --text3:#a2869a;
+  --bg-image:url('https://lyly-art-tech.github.io/Grimoire/Jardin%20fleuri.png');
+  --glass-blur:12px; --glass-hi:rgba(255,235,245,0.55);
+}
+:root[data-theme="parchemin-clair"]{
+  --bg:#f6efdf; --bg2:rgba(255,251,240,0.74); --bg3:rgba(248,240,222,0.64); --bg4:rgba(240,228,200,0.82);
+  --border:rgba(170,140,80,0.20); --border2:rgba(170,140,80,0.32);
+  --text:#3d3220; --text2:#746040; --text3:#a89065;
+  --bg-image:url('https://lyly-art-tech.github.io/Grimoire/Parchemin%20clair.png');
+  --glass-blur:11px; --glass-hi:rgba(255,244,215,0.6);
+}
+
+/* Surfaces en verre dépoli (visibles uniquement sur les thèmes à image) */
+.sidebar,.card,.modal,.perso-card,.world-card{
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+  box-shadow:inset 0 1px 0 var(--glass-hi);
+}
+
+/* Panneau de sélection de thème (sidebar) */
+.theme-panel{margin-bottom:10px}
+.theme-mode-row{display:flex;gap:6px;margin-bottom:8px}
+.theme-mode-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:5px 8px;font-size:11px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.theme-mode-btn:hover{background:var(--bg3);color:var(--text)}
+.theme-mode-btn.active{background:var(--bg4);color:var(--text)}
+.theme-swatches{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px}
+.theme-swatch{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;box-shadow:0 0 0 1px var(--border2);transition:transform .12s,border-color .12s}
+.theme-swatch:hover{transform:scale(1.12)}
+.theme-swatch.active{border-color:var(--text)}
+.theme-name{font-size:10px;color:var(--text3);text-align:center;letter-spacing:.03em}
+
 body,.sidebar,.main,.card,.nav-item,.btn,input,textarea,select{transition:background-color .25s ease,color .25s ease,border-color .25s ease}
 
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;font-size:14px;line-height:1.6}
+body{font-family:'Inter',sans-serif;background-color:var(--bg);background-image:var(--bg-image);background-size:cover;background-position:center;background-attachment:fixed;color:var(--text);display:flex;font-size:14px;line-height:1.6}
 
 /* SIDEBAR */
 .sidebar{width:var(--sidebar);min-height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:10;overflow-y:auto}
@@ -410,7 +507,15 @@ textarea{min-height:78px}
     </div>
   </nav>
   <div class="sidebar-bottom">
-    <button class="btn btn-sm" id="theme-toggle" style="width:100%;justify-content:center;font-size:11px;margin-bottom:10px" onclick="toggleTheme()">🌙 Mode sombre</button>
+    <div class="theme-panel">
+      <div class="nav-section" style="padding:0 0 6px">🎨 Thème</div>
+      <div class="theme-mode-row">
+        <button class="theme-mode-btn" data-mode="dark" onclick="setThemeMode('dark')">🌙 Foncé</button>
+        <button class="theme-mode-btn" data-mode="light" onclick="setThemeMode('light')">☀ Clair</button>
+      </div>
+      <div class="theme-swatches" id="theme-swatches"></div>
+      <div class="theme-name" id="theme-name"></div>
+    </div>
     <div style="display:flex;gap:6px;margin-bottom:10px">
       <button class="btn btn-sm" style="flex:1;justify-content:center;font-size:11px" onclick="exportData()">⬇ Exporter</button>
       <label class="btn btn-sm" style="flex:1;justify-content:center;font-size:11px;cursor:pointer;margin:0">⬆ Importer<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
@@ -737,9 +842,56 @@ Talents : peut déverrouiller des po…</span></div></div></div>
 </div>
 
 <script>
-function applyThemeLabel(){const b=document.getElementById('theme-toggle');if(!b)return;const light=document.documentElement.getAttribute('data-theme')==='light';b.textContent=light?'☀ Mode clair':'🌙 Mode sombre';}
-function toggleTheme(){const root=document.documentElement;const light=root.getAttribute('data-theme')==='light';if(light){root.removeAttribute('data-theme');try{localStorage.setItem('grimoire_theme','dark');}catch(e){}}else{root.setAttribute('data-theme','light');try{localStorage.setItem('grimoire_theme','light');}catch(e){}}applyThemeLabel();}
-document.addEventListener('DOMContentLoaded',applyThemeLabel);
+const THEMES=[
+  {id:'nuit',mode:'dark',label:'Nuit mystique',swatch:'linear-gradient(135deg,#7c6af5,#2a2440)'},
+  {id:'foret',mode:'dark',label:'Forêt enchantée',swatch:'linear-gradient(135deg,#4db87c,#123222)'},
+  {id:'sang',mode:'dark',label:'Sang et feu',swatch:'linear-gradient(135deg,#e0574a,#3a1210)'},
+  {id:'ciel',mode:'dark',label:'Ciel étoilé',swatch:'linear-gradient(135deg,#8fb0ff,#141a3a)'},
+  {id:'parchemin',mode:'dark',label:'Parchemin ancien',swatch:'linear-gradient(135deg,#d4a95a,#3a2a12)'},
+  {id:'light',mode:'light',label:'Cristal',swatch:'linear-gradient(135deg,#ffffff,#c9c4e0)'},
+  {id:'aube',mode:'light',label:'Aube dorée',swatch:'linear-gradient(135deg,#ffe0a0,#e0b050)'},
+  {id:'brume',mode:'light',label:'Brume matinale',swatch:'linear-gradient(135deg,#e8f0f8,#9ab0c4)'},
+  {id:'jardin',mode:'light',label:'Jardin fleuri',swatch:'linear-gradient(135deg,#f6c0d8,#a8c890)'},
+  {id:'parchemin-clair',mode:'light',label:'Parchemin clair',swatch:'linear-gradient(135deg,#f6eccf,#d0b070)'}
+];
+function currentThemeId(){var t=document.documentElement.getAttribute('data-theme');if(!t)return 'nuit';return THEMES.some(function(x){return x.id===t;})?t:'nuit';}
+function applyTheme(id){
+  var th=THEMES.find(function(x){return x.id===id;})||THEMES[0];
+  var root=document.documentElement;
+  if(th.id==='nuit')root.removeAttribute('data-theme');else root.setAttribute('data-theme',th.id);
+  try{
+    localStorage.setItem('grimoire_theme_v2',th.id);
+    localStorage.setItem('grimoire_theme',th.mode);
+    localStorage.setItem(th.mode==='light'?'grimoire_theme_light':'grimoire_theme_dark',th.id);
+  }catch(e){}
+  renderThemePanel();
+}
+function setThemeMode(mode){
+  var key=mode==='light'?'grimoire_theme_light':'grimoire_theme_dark';
+  var id=mode==='light'?'light':'nuit';
+  try{var s=localStorage.getItem(key);if(s&&THEMES.some(function(x){return x.id===s&&x.mode===mode;}))id=s;}catch(e){}
+  applyTheme(id);
+}
+function renderThemePanel(){
+  var cur=currentThemeId();
+  var mode=(THEMES.find(function(x){return x.id===cur;})||THEMES[0]).mode;
+  document.querySelectorAll('.theme-mode-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-mode')===mode);});
+  var wrap=document.getElementById('theme-swatches');
+  if(wrap){
+    wrap.innerHTML='';
+    THEMES.filter(function(t){return t.mode===mode;}).forEach(function(t){
+      var d=document.createElement('div');
+      d.className='theme-swatch'+(t.id===cur?' active':'');
+      d.style.background=t.swatch;
+      d.title=t.label;
+      d.onclick=function(){applyTheme(t.id);};
+      wrap.appendChild(d);
+    });
+  }
+  var nm=document.getElementById('theme-name');
+  if(nm)nm.textContent=(THEMES.find(function(x){return x.id===cur;})||THEMES[0]).label;
+}
+document.addEventListener('DOMContentLoaded',renderThemePanel);
 const COLORS={purple:{av:'av-purple',tag:'tag-purple'},teal:{av:'av-teal',tag:'tag-teal'},amber:{av:'av-amber',tag:'tag-amber'},coral:{av:'av-coral',tag:'tag-coral'},green:{av:'av-green',tag:'tag-green'},pink:{av:'av-pink',tag:'tag-pink'},blue:{av:'av-blue',tag:'tag-blue'}};
 const AV_HEX={purple:'#a89ef7',teal:'#4db8a4',amber:'#c4a35a',coral:'#e07b54',green:'#7cb87c',pink:'#b87cc8',blue:'#5b9cf6'};
 const ARBRE_FAM_TYPES=['Époux / épouse','Amant(e)','Ex','Parent / enfant','Grand-parent / petit-enfant','Frère / sœur','Cousin(e)','Oncle · tante / neveu · nièce'];
