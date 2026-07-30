@@ -10,8 +10,8 @@
 
 function LOD(){if(!S.lois||typeof S.lois!=='object'||Array.isArray(S.lois))S.lois={};return S.lois;}
 
-/* Illustration de la vue d'ensemble — rangée dans blah/Photos/, à côté de app/ */
-const LO_ILLUS='../Photos/Lois.png';
+/* Illustration de la vue d'ensemble — hébergée sur GitHub Pages (voir IMG_BASE) */
+const LO_ILLUS=IMG_BASE+'lois.png';
 
 /* Domaines du droit — chacun sa couleur dans la charte */
 const LO_DOMAINES=[

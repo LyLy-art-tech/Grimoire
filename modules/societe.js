@@ -10,9 +10,10 @@
 
 function SOD(){if(!S.societe||typeof S.societe!=='object'||Array.isArray(S.societe))S.societe={};return S.societe;}
 
-/* Illustration de la vue d'ensemble — rangée dans blah/Photos/, à côté de app/
-   (le nom du fichier sur le disque est bien « sociéte.png ») */
-const SO_ILLUS='../Photos/soci%C3%A9te.png';
+/* Illustration de la vue d'ensemble — hébergée sur GitHub Pages (voir IMG_BASE).
+   Le fichier local s'appelle « sociéte.png » ; en ligne il est déposé sous le
+   nom « societe.png », sans accent, pour éviter tout souci d'encodage d'URL. */
+const SO_ILLUS=IMG_BASE+'societe.png';
 
 /* Les pages « simples » : pas de fiches, juste des blocs de texte.
    [clé, icône, titre, couleur, [ [clé du champ, libellé], … ] ] */
@@ -35,17 +36,18 @@ const SO_PAGES=[
 ];
 const SO_PAGE={};SO_PAGES.forEach(p=>{SO_PAGE[p.k]=p;});
 
-/* Images fournies pour les cases, rangées dans blah/Photos/Société/case/.
+/* Images fournies pour les cases, hébergées sur GitHub Pages (voir IMG_BASE).
+   Noms sans accent ni espace : le dossier en ligne est à plat.
    Une image téléversée depuis la carte prend le pas sur celle-ci. */
-const SO_IMG='../Photos/Soci%C3%A9t%C3%A9/case/';
+const SO_IMG=IMG_BASE;
 const SO_FICHIERS={
   traditions:'tradition.png',
-  noblesse:'hi%C3%A9rarchie.png',
-  education:'%C3%A9tudes.png',
+  noblesse:'hierarchie.png',
+  education:'etudes.png',
   economie:'monaie.png',
   mode:'mode.png',
   gastronomie:'gastronomie.png',
-  langues:'Langue%20et%20%C3%A9criture.png'
+  langues:'langue-et-ecriture.png'
 };
 function soFichier(k){return SO_FICHIERS[k]?SO_IMG+SO_FICHIERS[k]:'';}
 
@@ -121,7 +123,7 @@ function soRenderVue(){
     .map(s=>`<div><div class="mg-stat-num">${s[0]}</div><div class="mg-stat-lab">${mgEsc(s[1])}</div></div>`).join('');
 
   const cartes=SO_CARTES.map(c=>{
-    // image téléversée si elle existe, sinon celle fournie dans Photos/Société/case/
+    // image téléversée si elle existe, sinon celle fournie en ligne (SO_FICHIERS)
     const p=mgP(c.c),img=soImg(c.k).image||soFichier(c.k);
     const fond=img
       ? `background-image:url('${img}')`

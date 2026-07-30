@@ -53,8 +53,8 @@ const MG_SEV={faible:{l:'Faible',c:'amber'},modere:{l:'Modéré',c:'coral'},grav
 const MG_SEV_KEYS=['faible','modere','grave','mortel'];
 const MG_RARETE={commun:{l:'Commun',c:'slate'},rare:{l:'Rare',c:'blue'},tresrare:{l:'Très rare',c:'purple'},legendaire:{l:'Légendaire',c:'amber'},unique:{l:'Unique',c:'pink'}};
 const MG_RARETE_KEYS=['commun','rare','tresrare','legendaire','unique'];
-/* Les images vivent dans blah/Photos/, à côté du dossier app/ */
-const MG_IMG='../Photos/Magie/';
+/* Les images de la page Magie vivent en ligne, voir IMG_BASE dans core.js */
+const MG_IMG=IMG_BASE;
 
 function MGD(){if(!S.magie||typeof S.magie!=='object'||Array.isArray(S.magie))S.magie={};return S.magie;}
 function mgP(k){return MG_PAL[k]||MG_PAL.blue;}
@@ -74,8 +74,8 @@ function mgAddBtn(call,label){return `<button class="mg-icon-btn mg-edit" onclic
 function mgHead(title,btns){return `<div class="mg-head"><div class="mg-head-t">${title}</div><div class="mg-head-line"></div>${btns||''}</div>`;}
 function mgEmpty(txt,btn){return `<div class="empty"><div class="empty-icon">✦</div>${mgEsc(txt)}${btn?`<div style="margin-top:14px">${btn}</div>`:''}</div>`;}
 function mgActs(editCall,label){return `<div class="mg-act"><button class="mg-icon-btn" onclick="event.stopPropagation();${editCall}" title="${mgEsc(label||'Modifier')}">✎</button></div>`;}
-/* Illustration encadrée. mgImg() prend un fichier du dossier Photos/Magie,
-   mgImgSrc() un chemin complet — pour les images rangées ailleurs.
+/* Illustration encadrée. mgImg() prend un nom de fichier, complété par IMG_BASE ;
+   mgImgSrc() une URL complète — pour les images hébergées ailleurs.
    Passer cls='entiere' affiche l'image en entier, sans recadrage. */
 function mgImgSrc(src,alt,style,cls){return `<div class="mg-img${cls?' '+cls:''}" style="${style||''}"><img src="${src}" alt="${mgEsc(alt)}" loading="lazy"></div>`;}
 function mgImg(file,alt,style,cls){return mgImgSrc(MG_IMG+file,alt,style,cls);}

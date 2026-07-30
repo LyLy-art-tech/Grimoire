@@ -16,8 +16,8 @@
    ========================================================================= */
 function CRD(){if(!S.creatures||typeof S.creatures!=='object'||Array.isArray(S.creatures))S.creatures={};return S.creatures;}
 
-/* Illustration de la vue d'ensemble — rangée dans blah/Photos/, à côté de app/ */
-const CR_IMG='../Photos/Cr%C3%A9atures.png';
+/* Illustration de la vue d'ensemble — hébergée sur GitHub Pages (voir IMG_BASE) */
+const CR_IMG=IMG_BASE+'creatures.png';
 
 const CR_TYPES=[
   ['humanoide',  'Humanoïde',      'teal'],

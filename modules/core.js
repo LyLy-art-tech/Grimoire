@@ -7,6 +7,13 @@
    partagent le même objet S et le même localStorage.
    ====================================================================== */
 
+/* Base des illustrations livrées avec le site.
+   Elles sont hébergées sur GitHub Pages et non en local : un chemin relatif
+   comme ../Photos/ ne peut pas fonctionner depuis un téléphone, qui n'a pas
+   accès au disque de l'ordinateur. Tous les modules passent par cette
+   constante — c'est le seul endroit à modifier si le dossier change. */
+const IMG_BASE='https://lyly-art-tech.github.io/Grimoire/images/';
+
 const COLORS={purple:{av:'av-purple',tag:'tag-purple'},teal:{av:'av-teal',tag:'tag-teal'},amber:{av:'av-amber',tag:'tag-amber'},coral:{av:'av-coral',tag:'tag-coral'},green:{av:'av-green',tag:'tag-green'},pink:{av:'av-pink',tag:'tag-pink'},blue:{av:'av-blue',tag:'tag-blue'}};
 const AV_HEX={purple:'#a89ef7',teal:'#4db8a4',amber:'#c4a35a',coral:'#e07b54',green:'#7cb87c',pink:'#b87cc8',blue:'#5b9cf6'};
 
